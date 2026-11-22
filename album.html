@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12图双层3D旋转立方体 - 我的作品</title>
+<meta name="description" content="用 HTML 与 CSS 3D 实现的双层 12 图旋转立方体相册作品。">
+<meta name="keywords" content="3D立方体,CSS 3D,相册,前端作品">
+<meta name="theme-color" content="#0f2027">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="canonical" href="album.html">
+    <meta name="robots" content="index,follow">
+    <script>(function(){try{var u=location.origin+location.pathname.replace(/index[.]html$/,"");var c=document.querySelector("link[rel=canonical]");if(c)c.href=u;var og=document.querySelector("meta[property=og:url]");if(!og){og=document.createElement("meta");og.setAttribute("property","og:url");document.head.appendChild(og);}og.content=u;}catch(e){}})();</script>
+<meta property="og:type" content="website">
+<meta property="og:title" content="12图双层3D旋转立方体 - 我的作品">
+<meta property="og:description" content="用 HTML 与 CSS 3D 实现的双层 12 图旋转立方体相册作品。">
+<meta property="og:image" content="images/13.jpg">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+    background:#000;
+    background-image:url('images/13.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.top-text{
+    position:absolute;
+    top:60px;
+    width:100%;
+    text-align:center;
+    font-size:28px;
+    color:#ffb35c;
+    font-weight:bold;
+    z-index:10;
+}
+.music-btn{
+    position:fixed;
+    right:30px;
+    top:20px;
+    font-size:50px;
+    color:#fff;
+    opacity:0.6;
+    cursor:pointer;
+    z-index:99;
+}
+.rotate{
+    animation:musicRotate 4s linear infinite;
+}
+@keyframes musicRotate{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+.wrap{
+    perspective:1200px;
+    width:300px;
+    height:300px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    transform-style:preserve-3d;
+}
+
+.cube-out{
+    width:100%;
+    height:100%;
+    position:absolute;
+    transform-style:preserve-3d;
+    animation:rotateOut 24s infinite linear;
+}
+.cube-in{
+    width:60%;
+    height:60%;
+    position:absolute;
+    left:20%;
+    top:20%;
+    transform-style:preserve-3d;
+    animation:rotateIn 18s infinite linear;
+}
+
+@keyframes rotateOut{
+    0%{transform:rotateY(0deg) rotateX(0deg);}
+    100%{transform:rotateY(360deg) rotateX(360deg);}
+}
+@keyframes rotateIn{
+    0%{transform:rotateY(0deg) rotateX(0deg);}
+    100%{transform:rotateY(360deg) rotateX(360deg);}
+}
+
+.cube-out > div,
+.cube-in > div{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    transition:transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    display:block;
+    transition:transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s ease;
+}
+
+/* 外层原始位置 */
+.out_front{transform:translateZ(150px);}
+.out_back{transform:rotateY(180deg) translateZ(150px);}
+.out_left{transform:rotateY(-90deg) translateZ(150px);}
+.out_right{transform:rotateY(90deg) translateZ(150px);}
+.out_top{transform:rotateX(90deg) translateZ(150px);}
+.out_bottom{transform:rotateX(-90deg) translateZ(150px);}
+
+/* 内层原始位置 */
+.in_front{transform:translateZ(90px);}
+.in_back{transform:rotateY(180deg) translateZ(90px);}
+.in_left{transform:rotateY(-90deg) translateZ(90px);}
+.in_right{transform:rotateY(90deg) translateZ(90px);}
+.in_top{transform:rotateX(90deg) translateZ(90px);}
+.in_bottom{transform:rotateX(-90deg) translateZ(90px);}
+
+/* 扩散状态：外层 */
+.wrap.spread .out_front{transform:translateZ(320px);}
+.wrap.spread .out_back{transform:rotateY(180deg) translateZ(320px);}
+.wrap.spread .out_left{transform:rotateY(-90deg) translateZ(320px);}
+.wrap.spread .out_right{transform:rotateY(90deg) translateZ(320px);}
+.wrap.spread .out_top{transform:rotateX(90deg) translateZ(320px);}
+.wrap.spread .out_bottom{transform:rotateX(-90deg) translateZ(320px);}
+.wrap.spread .cube-out > div > img{
+    transform:scale(1.35);
+    opacity:0.88;
+}
+
+/* 扩散状态：内层 */
+.wrap.spread .in_front{transform:translateZ(200px);}
+.wrap.spread .in_back{transform:rotateY(180deg) translateZ(200px);}
+.wrap.spread .in_left{transform:rotateY(-90deg) translateZ(200px);}
+.wrap.spread .in_right{transform:rotateY(90deg) translateZ(200px);}
+.wrap.spread .in_top{transform:rotateX(90deg) translateZ(200px);}
+.wrap.spread .in_bottom{transform:rotateX(-90deg) translateZ(200px);}
+.wrap.spread .cube-in > div > img{
+    transform:scale(1.35);
+    opacity:0.88;
+}
+
+#particleCanvas{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    z-index:-1;
+    pointer-events:none;
+}
+.bottom-deco{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    pointer-events:none;
+}
+
+/* ⭐️ 返回导航（回主站 / 回作品集） */
+.page-back-nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+}
+.page-back-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: 22px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #eaf6ff;
+    background: rgba(7, 26, 46, 0.55);
+    border: 1px solid rgba(120, 200, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 20, 40, 0.35);
+    transition: background .3s, transform .25s, border-color .3s;
+}
+.page-back-nav a:hover {
+    background: rgba(0, 119, 190, 0.85);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+}
+.page-back-nav a.back-home {
+    background: rgba(0, 119, 190, 0.75);
+}
+.page-back-nav a:focus-visible {
+    outline: 3px solid #ffd300;
+    outline-offset: 3px;
+}
+</style>
+</head>
+<body>
+
+<!-- ⭐️ 返回导航 -->
+<nav class="page-back-nav" aria-label="作品页导航">
+    <a href="index.html" class="back-home" aria-label="返回首页">🏠 首页</a>
+    <a href="works.html" aria-label="返回作品集">⬅ 作品集</a>
+</nav>
+
+<div class="top-text">你知道吗，陪伴是最长情的告白♥</div>
+<div class="music-btn" onclick="toggleMusic(this)">🎵</div>
+<div class="wrap" id="wrapBox">
+    <div class="cube-out">
+        <div class="out_front"><img src="images/1.png" alt=""></div>
+        <div class="out_back"><img src="images/2.png" alt=""></div>
+        <div class="out_left"><img src="images/3.png" alt=""></div>
+        <div class="out_right"><img src="images/4.png" alt=""></div>
+        <div class="out_top"><img src="images/5.png" alt=""></div>
+        <div class="out_bottom"><img src="images/6.png" alt=""></div>
+    </div>
+    <div class="cube-in">
+        <div class="in_front"><img src="images/7.png" alt=""></div>
+        <div class="in_back"><img src="images/8.png" alt=""></div>
+        <div class="in_left"><img src="images/9.png" alt=""></div>
+        <div class="in_right"><img src="images/10.png" alt=""></div>
+        <div class="in_top"><img src="images/11.png" alt=""></div>
+        <div class="in_bottom"><img src="images/12.png" alt=""></div>
+    </div>
+</div>
+<canvas id="particleCanvas"></canvas>
+<svg class="bottom-deco" viewBox="0 0 1920 300">
+    <path d="M0 300 Q 500 120 1000 180 T 1920 150 L1920 300 Z" fill="#6b2e40" opacity="0.8" />
+    <circle cx="70" cy="220" r="8" fill="#ffffff" />
+    <circle cx="370" cy="180" r="10" fill="#ffffff" />
+    <circle cx="730" cy="200" r="9" fill="#ffffff" />
+    <circle cx="1350" cy="170" r="11" fill="#ffffff" />
+    <circle cx="1820" cy="160" r="8" fill="#ffffff" />
+</svg>
+<audio id="bgMusic" loop hidden>
+
+<script>
+let musicOn=false;
+const audio=document.getElementById('bgMusic');
+function toggleMusic(el){
+    if(!musicOn){
+        audio.play().catch(e=>{});
+        el.classList.add('rotate');
+        musicOn=true;
+    }else{
+        audio.pause();
+        el.classList.remove('rotate');
+        musicOn=false;
+    }
+}
+
+const wrapBox = document.getElementById('wrapBox');
+const faces = wrapBox.querySelectorAll('.cube-out > div, .cube-in > div');
+let isSpread = false;
+
+faces.forEach(face => {
+    face.addEventListener('mouseenter', () => {
+        if(!isSpread){
+            wrapBox.classList.add('spread');
+            isSpread = true;
+        }
+    });
+});
+
+wrapBox.addEventListener('click',()=>{
+    if(isSpread){
+        wrapBox.classList.remove('spread');
+        isSpread = false;
+    }else{
+        wrapBox.classList.add('spread');
+        isSpread = true;
+    }
+})
+
+const canvas=document.getElementById("particleCanvas");
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener('resize',resize);
+let stars=[];
+class Star{
+    constructor(){
+        this.reset();
+    }
+    reset(){
+        this.x=Math.random()*W;
+        this.y=Math.random()*H;
+        this.speedX=-(Math.random()*2+1);
+        this.speedY=Math.random()*1+0.5;
+        this.alpha=Math.random()*0.6+0.2;
+    }
+    update(){
+        this.x+=this.speedX;
+        this.y+=this.speedY;
+        if(this.x<0||this.y>H){
+            this.reset();
+        }
+    }
+    draw(){
+        ctx.beginPath();
+        ctx.moveTo(this.x,this.y);
+        ctx.lineTo(this.x-this.speedX*6,this.y-this.speedY*6);
+        ctx.strokeStyle=`rgba(255,170,190,${this.alpha})`;
+        ctx.lineWidth=2;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,2,0,Math.PI*2);
+        ctx.fillStyle="#ffb4c8";
+        ctx.fill();
+    }
+}
+for(let i=0;i<180;i++) stars.push(new Star())
+function animate(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{
+        s.update();
+        s.draw();
+    })
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>

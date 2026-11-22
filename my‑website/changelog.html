@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新日志 - 我的个人主页</title>
+    <meta name="description" content="星空海洋个人主页的十轮升级记录：从基础交互到朗读、全屏、留言头像、学习日历与作品对比。">
+    <meta name="theme-color" content="#0f2027">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="canonical" href="changelog.html">
+    <meta name="robots" content="index,follow">
+    <script>(function(){try{var u=location.origin+location.pathname.replace(/index[.]html$/,"");var c=document.querySelector("link[rel=canonical]");if(c)c.href=u;var og=document.querySelector("meta[property=og:url]");if(!og){og=document.createElement("meta");og.setAttribute("property","og:url");document.head.appendChild(og);}og.content=u;}catch(e){}})();</script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        main.container { flex: 1; padding-top: 46px; padding-bottom: 64px; }
+        .log-title { text-align: center; margin-bottom: 8px; }
+        .log-sub { text-align: center; color: #cfe6f6; margin-bottom: 34px; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+        .log-list { position: relative; max-width: 860px; margin: 0 auto; padding-left: 34px; }
+        .log-list::before { content: ""; position: absolute; left: 9px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(#ffd86b, #57c8e8, #8d7ff0); border-radius: 2px; }
+        .log-item { position: relative; margin-bottom: 24px; padding: 20px 22px; border-radius: 16px;
+            background: rgba(255,255,255,.84); border: 1px solid rgba(255,255,255,.92);
+            box-shadow: 0 8px 24px rgba(0,0,0,.18); color: #213648; }
+        .log-item::before { content: ""; position: absolute; left: -31px; top: 26px; width: 12px; height: 12px; border-radius: 50%;
+            background: #ffd86b; box-shadow: 0 0 0 4px rgba(255,216,107,.22); }
+        .log-item:nth-child(3n+2)::before { background: #57c8e8; box-shadow: 0 0 0 4px rgba(87,200,232,.22); }
+        .log-item:nth-child(3n+3)::before { background: #8d7ff0; box-shadow: 0 0 0 4px rgba(141,127,240,.22); }
+        .log-item__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+        .log-item__head h3 { margin: 0; font-size: 1.14rem; color: #005a9c; }
+        .log-tag { font: 700 .72rem var(--font-tech); padding: 3px 9px; border-radius: 999px; background: rgba(0,119,190,.12); color: #005a9c; }
+        .log-tag.latest { background: rgba(230,167,0,.18); color: #a06d00; }
+        .log-date { margin-left: auto; font-size: .78rem; color: #7b8b99; }
+        .log-item ul { margin: 0; padding-left: 20px; line-height: 1.85; font-size: .9rem; color: #40596c; }
+        .log-item li::marker { color: #57c8e8; }
+        .log-foot { text-align: center; margin-top: 30px; }
+        html[data-theme="light"] .log-sub { color: #2c5364; text-shadow: none; }
+    </style>
+    <script>(function(){try{var t=localStorage.getItem("site-theme"),m=localStorage.getItem("site-theme-mode")||(t==="light"?"light":"dark"),light=m==="light"||(m==="auto"&&matchMedia("(prefers-color-scheme: light)").matches);if(light)document.documentElement.setAttribute("data-theme","light");localStorage.setItem("site-theme",light?"light":"dark");if(localStorage.getItem("site-motion")==="off")document.documentElement.setAttribute("data-motion","off");var sf=localStorage.getItem("siteFont");if(sf&&sf!=="default")document.documentElement.setAttribute("data-font",sf);}catch(e){}})();</script>
+    <script>(function(){try{var a=JSON.parse(localStorage.getItem("siteAccent")||'"ocean"');if(a&&a!=="ocean")document.documentElement.setAttribute("data-accent",a);}catch(e){}})();</script>
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1>我的个人主页</h1>
+            <div class="theme-toggle-wrap"><button class="theme-toggle" type="button" aria-label="切换主题"><span class="theme-toggle-icon">◐</span></button></div>
+            <nav class="site-nav" aria-label="主导航">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于我</a></li>
+                    <li><a href="works.html">我的作品</a></li>
+                    <li><a href="hobby.html">兴趣爱好</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="log-title">📜 更新日志</h2>
+        <p class="log-sub">这个网站不是一次做好的，而是一点点长成现在的样子</p>
+
+        <div class="log-list">
+            <article class="log-item">
+                <div class="log-item__head"><h3>v11.0 · 美观与实用</h3><span class="log-tag latest">最新</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>个人名片海报 PNG 与 vCard 电子名片，一键分享或存入通讯录</li>
+                    <li>留言导出 CSV（Excel 可直接打开）、阅读位置记忆与高对比度模式</li>
+                    <li>图片悬停放大提示与深色模式亮度自适应</li>
+                    <li>留言拖拽排序、选中文字高亮标记与留言字数进度环</li>
+                    <li>全站卡片悬停流光渐变描边</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v10.0 · 阅读与记录</h3><span class="log-tag">第十轮</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>听全文：朗读正文，支持暂停 / 继续 / 停止与四档语速</li>
+                    <li>全屏沉浸模式与默认 / 黑体 / 宋体 / 圆体四种字体风格</li>
+                    <li>选中文字浮动工具条：复制、朗读、分享，可一键关闭</li>
+                    <li>留言 Emoji 头像与一键生成留言分享卡片 PNG</li>
+                    <li>首页学习日历：可给任意日期写本地备忘</li>
+                    <li>作品对比模式、更新日志页与全站页脚入口</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v9.0 · 细节与效率</h3><span class="log-tag">第九轮</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>环形阅读进度回顶按钮、专注模式与统一收藏夹面板</li>
+                    <li>精选置顶留言轮播、留言表单实时校验提示</li>
+                    <li>作品详情弹层与可分享的 #work 链接</li>
+                    <li>技能条点击展开详情、待办优先级与筛选、番茄钟自定义时长</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v8.0 · 分享与无障碍</h3><span class="log-tag">第八轮</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>页脚分享此页、减少动画开关（PWA 安装横幅后按用户要求移除）</li>
+                    <li>留言草稿自动保存与四种表情回应</li>
+                    <li>作品一键生成壁纸、网格 / 瀑布流布局切换</li>
+                    <li>成长时间线阶段筛选</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v7.0 · 留言与导览</h3><span class="log-tag">第七轮</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>留言搜索与心情筛选、留言时间轴视图、精选打卡</li>
+                    <li>目标倒计时、自定义主色调与全站功能导览浮层</li>
+                    <li>番茄钟专注记录与完成提醒</li>
+                    <li>作品灯箱左右切换、缩略图跳转与自动播放</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v6.0 · 数据与页面</h3><span class="log-tag">第六轮</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>主题三态（跟随系统 / 浅色海洋 / 星空雨夜）与离线状态提示</li>
+                    <li>本地数据管理面板：查看、导出、删除浏览器里的本站数据</li>
+                    <li>留言回复楼中楼、作品点赞与最热排序、一键打印简历</li>
+                    <li>新增 404 页面与可视化站点地图页</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v5.0 · 视觉增强</h3><span class="log-tag">第五轮</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>星云配色三选一、页面淡入与非首屏图片懒加载</li>
+                    <li>星空实时时钟、年度时间进度条与成就徽章墙</li>
+                    <li>留言漂流瓶视图、作品收藏与联系方式一键复制</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v4.0 · 工程化</h3><span class="log-tag">阶段 3-4</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>章节导航、逐字高亮、波浪分隔与音乐频谱</li>
+                    <li>番茄钟、待办清单、字号 / 阅读模式、词云、热力图</li>
+                    <li>背景 banner、作品「收获」、PWA 离线缓存、留言导出</li>
+                    <li>SEO 元信息、JSON-LD 结构化数据、站点地图与二维码</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v3.0 · 交互精加工</h3><span class="log-tag">阶段 1-2</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>用 Toast 取代原生 alert、滚动入场动画、毛玻璃固定导航</li>
+                    <li>打字机、视差滚动、技能熟练度条与深浅主题切换</li>
+                    <li>SVG 图标、星光拖尾、阅读进度、站内搜索、氛围音乐</li>
+                    <li>留言心情 / 统计、作品筛选、时间胶囊与访客徽章</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v2.0 · 修复与打磨</h3><span class="log-tag">优化</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>修复留言板 XSS 漏洞，所有用户输入统一转义</li>
+                    <li>留言删除、真实联系方式、图片错配与低清问题</li>
+                    <li>作品页返回入口、透明度调整与背景图优化</li>
+                    <li>翻转名片背面文字对比度修复</li>
+                </ul>
+            </article>
+
+            <article class="log-item">
+                <div class="log-item__head"><h3>v1.0 · 初版</h3><span class="log-tag">起点</span><span class="log-date">2026.11</span></div>
+                <ul>
+                    <li>星空海洋风四页面：首页、关于我、我的作品、兴趣爱好</li>
+                    <li>双层 3D 旋转立方体相册与 3D 跳动毛刺爱心两个作品子页</li>
+                    <li>响应式卡片布局、基础留言板与统一公共样式</li>
+                </ul>
+            </article>
+        </div>
+
+        <div class="log-foot"><a href="sitemap.html" class="button">查看站点地图</a> <a href="index.html" class="button">返回首页</a></div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>✨ 不必急于求成，静下心慢慢沉淀，仰望星空的同时，踏实走好脚下的每一步路。</p>
+            <p class="copyright">© 2026 我的个人主页 · 更新日志</p>
+        </div>
+    </footer>
+
+    <script src="js/interactions.js"></script>
+    <script src="js/extras.js"></script>
+    <script src="js/upgrade6.js"></script>
+    <script src="js/upgrade7.js"></script>
+</body>
+</html>

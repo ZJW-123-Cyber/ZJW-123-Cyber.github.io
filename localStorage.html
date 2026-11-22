@@ -1,0 +1,60 @@
+<section class="register-form-wrap">
+    <h2>📋 星空书屋登记表</h2>
+    <form id="registerForm">
+        <div class="form-block">
+            <h3>个人信息</h3>
+            <div class="form-row">
+                <div class="form-item">
+                    <label>姓名*</label>
+                    <input type="text" id="regName" placeholder="你的姓名" required>
+                </div>
+                <div class="form-item">
+                    <label>地址*</label>
+                    <input type="text" id="regAddr" placeholder="你的地址" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-item">
+                    <label>生日*</label>
+                    <input type="date" id="regBirth" required>
+                </div>
+                <div class="form-item">
+                    <label>性别*</label>
+                    <select id="regGender" required>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-block">
+            <h3>喜好调查</h3>
+            <div class="form-radio-group">
+                <p>你喜欢这个网站吗？</p>
+                <label><input type="radio" name="like" value="喜欢" checked> 喜欢</label>
+                <label><input type="radio" name="like" value="不喜欢"> 不喜欢</label>
+            </div>
+            <div class="form-check-group">
+                <p>你喜欢的原因：</p>
+                <label><input type="checkbox" value="页面美观"> 页面美观</label>
+                <label><input type="checkbox" value="结构合理"> 结构合理</label>
+                <label><input type="checkbox" value="构思巧妙"> 构思巧妙</label>
+                <label><input type="checkbox" value="主题新颖"> 主题新颖</label>
+                <label><input type="checkbox" value="内容丰富"> 内容丰富</label>
+                <label><input type="checkbox" value="产生共鸣"> 产生共鸣</label>
+            </div>
+        </div>
+
+        <div class="form-block">
+            <h3>你的建议</h3>
+            <textarea id="regSuggest" placeholder="提供你的建议..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">提交登记</button>
+    </form>
+
+    <!-- 登记记录展示区 -->
+    <div class="record-title">📜 登记记录</div>
+    <div id="recordList"></div>
+</section>

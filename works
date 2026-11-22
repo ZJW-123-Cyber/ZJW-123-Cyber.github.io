@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的作品 - 深海画廊</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="我的前端作品展示：双层3D旋转立方体相册、个人介绍网页、Three.js 3D跳动毛刺爱心。">
+    <meta name="keywords" content="前端作品,3D相册,Three.js,GSAP,CSS动画,个人网站">
+    <meta name="theme-color" content="#0f2027">
+    <meta name="author" content="我的个人主页">
+    <!-- SEO / 社交分享卡片 -->
+    <link rel="canonical" href="works.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="蓝调雨夜 · 我的个人主页">
+    <meta property="og:title" content="我的作品 - 深海画廊">
+    <meta property="og:description" content="我的前端作品展示：双层3D旋转立方体相册、个人介绍网页、Three.js 3D跳动毛刺爱心。">
+    <meta property="og:image" content="images/13.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"CollectionPage","name":"我的作品 - 深海画廊","description":"我的前端作品展示：3D相册、个人网页、Three.js 爱心"}
+    </script>
+    <script>(function(){try{var t=localStorage.getItem("site-theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        
+        /* ⭐️ 深邃的蓝色渐变背景 */
+        body { 
+            display: flex; 
+            flex-direction: column; 
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%) !important; 
+            background-image: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%) !important;
+            background-attachment: fixed;
+            animation: none !important;        
+        }
+
+        /* 雨滴画布 */
+        #rainCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        header, main, footer { position: relative; z-index: 10; }
+
+        main.container { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 24px 18px; }
+        
+        .work-title { 
+            font-size: 1.4rem; 
+            margin-bottom: 24px; 
+            color: #ffffff; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+        /* ⭐️ 高清微透的毛玻璃卡片 */
+        .works-grid .card {
+            background: rgba(255, 255, 255, 0.85) !important; 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; flex-direction: column;
+        }
+        
+        .works-grid .card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); 
+        }
+
+        .works-grid .card .work-img {
+            width: 100%; height: 180px; object-fit: cover; border-radius: 8px;
+            margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        /* 爱心图分辨率较小，用 contain + 深色底衬托，避免放大裁切模糊 */
+        .works-grid .card .work-img--heart {
+            object-fit: contain;
+            background: linear-gradient(135deg, #7a1520, #c0392b);
+        }
+        
+        /* 文字颜色适配白底卡片（改回了原本的主题蓝） */
+        .works-grid .card h3 { font-size: 1.15rem; color: #005a9c; margin: 0 0 10px 0; }
+        .works-grid .card p { font-size: 1rem; line-height: 1.7; color: #333; margin: 0 0 14px 0; }
+        /* ⭐️ 收获 / 难点 */
+        .work-gain {
+            display: flex; gap: 9px; align-items: flex-start;
+            padding: 11px 13px; margin: 0 0 16px 0;
+            background: rgba(0, 119, 190, 0.07);
+            border-left: 3px solid rgba(0, 119, 190, 0.55);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.88rem; line-height: 1.65; color: #3a4a5a;
+        }
+        .work-gain.gain-3d { background: rgba(106, 79, 194, 0.07); border-left-color: rgba(106, 79, 194, 0.6); }
+        .work-gain .gain-label { flex: none; font-weight: 700; color: #005a9c; white-space: nowrap; }
+        .work-gain.gain-3d .gain-label { color: #6a4fc2; }
+        /* ⭐️ 技术栈标签 */
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 18px 0; }
+        .tech-tag {
+            padding: 4px 11px; border-radius: 14px; font-size: 0.8rem; font-weight: 600;
+            color: #005a9c; background: rgba(0, 119, 190, 0.1);
+            border: 1px solid rgba(0, 119, 190, 0.28);
+        }
+        .tech-tag.tag-3d { color: #6a4fc2; background: rgba(106, 79, 194, 0.1); border-color: rgba(106, 79, 194, 0.28); }
+        .tech-tag.tag-js { color: #a8740b; background: rgba(184, 134, 11, 0.1); border-color: rgba(184, 134, 11, 0.28); }
+        .works-grid .card .button { align-self: flex-start; margin-top: auto; }
+
+        @media (max-width: 900px) {
+            .works-grid { grid-template-columns: repeat(2, 1fr); }
+            /* 3 张卡片在两列下会让第 3 张落单，让它横跨整行并居中图片 */
+            .works-grid .card:last-child { grid-column: 1 / -1; max-width: calc(50% - 12px); justify-self: center; width: 100%; }
+        }
+        @media (max-width: 600px) {
+            .works-grid { grid-template-columns: 1fr; }
+            .works-grid .card:last-child { grid-column: auto; max-width: none; justify-self: stretch; }
+        }
+        
+        /* 页脚 */
+        footer { 
+            background-color: rgba(0, 113, 188, 0.6) !important; 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2); 
+            color: #fff; 
+            text-align: center; 
+            padding: 16px 0; 
+            width: 100%; 
+        }
+        footer p { margin: 0; color: #fff; font-size: 0.9rem; text-shadow: 0 1px 3px rgba(0,0,0,0.5);}
+        footer .copyright { font-size: 0.8rem; opacity: 0.8; }
+    </style>
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">跳转到主要内容</a>
+    <header class="site-header">
+        <div class="container">
+            <h1><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><circle class="brand-star" cx="16" cy="14" r="2"></circle><circle class="brand-star" cx="46" cy="12" r="1.5"></circle><path class="whale-body" d="M12 40c6-9 16-13 22-8 4 3 8 3 14 0-2 8-9 15-18 15-7 0-13-3-18-7z"></path><path class="whale-fin" d="M34 32c2-4 6-6 9-5-1 3-4 5-9 5z"></path><circle class="whale-eye" cx="44" cy="34" r="1.1"></circle></svg>我的个人主页</h1>
+            <div class="theme-toggle-wrap"><button class="theme-toggle" type="button" aria-label="切换深浅主题" title="切换深浅主题"><span class="theme-toggle-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5z"/></svg></span></button></div>
+            <nav class="site-nav" aria-label="主导航">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于我</a></li>
+                    <li><a href="works.html" class="active" aria-current="page">我的作品</a></li>
+                    <li><a href="hobby.html">兴趣爱好</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+        <h2 class="work-title"><span data-icon="folder" style="vertical-align:-0.08em"></span> 我的作品展示</h2>
+        <div class="works-grid">
+            <div class="card reveal tilt-card" style="--reveal-delay: 0s">
+                <img src="images/13.jpg" alt="双层3D旋转立方体相册预览" class="work-img">
+                <h3>双层3D旋转立方体相册</h3>
+                <p>CSS3‑Transform实现双层旋转立方体相册，支持点击切换扩散效果，搭配流星粒子背景与音乐开关，共12张图片展示。</p>
+                <div class="work-gain">
+                    <span class="gain-label"><span data-icon="bulb" style="vertical-align:-0.08em;margin-right:3px"></span>收获</span>
+                    <span>搞懂了 <strong>transform-style: preserve-3d</strong> 与六个面的空间定位，第一次把坐标系想象真正用在了页面上，也学会了用 JS 控制 CSS 动画的节奏。</span>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3 Transform</span>
+                    <span class="tech-tag tag-js">JavaScript</span>
+                </div>
+                <a href="album.html" target="_blank" class="button" data-lightbox>点击查看作品</a>
+            </div>
+            <div class="card reveal tilt-card" style="--reveal-delay: 0.15s">
+                <img src="images/banner.png" alt="自我介绍网页首页预览" class="work-img">
+                <h3>自我介绍网页</h3>
+                <p>就是现在这个网站，包含多页面导航、卡片布局、以及丝滑的 CSS 动画效果和留言板交互功能。</p>
+                <div class="work-gain">
+                    <span class="gain-label"><span data-icon="bulb" style="vertical-align:-0.08em;margin-right:3px"></span>收获</span>
+                    <span>把多页面统一样式抽成公共 CSS 和 JS，理解了组件化复用；做留言板时踩过 XSS 的坑，学会了转义用户输入，也用 <strong>IntersectionObserver</strong> 做出了滚动入场。</span>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">响应式布局</span>
+                    <span class="tech-tag">CSS 动画</span>
+                    <span class="tech-tag tag-js">localStorage</span>
+                    <span class="tech-tag tag-js">IntersectionObserver</span>
+                </div>
+                <a href="index.html" class="button">返回首页</a>
+            </div>
+            <div class="card reveal tilt-card" style="--reveal-delay: 0.3s">
+                <img src="images/78.png" alt="3D跳动毛刺爱心预览" class="work-img work-img--heart">
+                <h3>3D跳动毛刺爱心</h3>
+                <p>基于Three.js实现的三维爱心动画，使用噪声算法做出毛刺畸变效果，搭配GSAP实现心跳缩放与自转效果。</p>
+                <div class="work-gain gain-3d">
+                    <span class="gain-label"><span data-icon="bulb" style="vertical-align:-0.08em;margin-right:3px"></span>收获</span>
+                    <span>第一次用 <strong>Three.js</strong> 搭建场景、材质与几何体，学会了用噪声函数扰动顶点做形变，再交给 <strong>GSAP</strong> 编排心跳动画，体会到数学和视觉结合的乐趣。</span>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag tag-3d">Three.js</span>
+                    <span class="tech-tag tag-3d">GSAP</span>
+                    <span class="tech-tag tag-3d">噪声算法</span>
+                </div>
+                <a href="heart.html" target="_blank" class="button" data-lightbox>点击查看作品</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p><span data-icon="sparkle" style="vertical-align:-0.08em;margin-right:2px"></span>个人名言：不必急于求成，静下心慢慢沉淀，仰望星空的同时，踏实走好脚下的每一步路。</p>
+            <p class="copyright"><svg class="footer-mark" viewBox="0 0 64 64" aria-hidden="true"><circle class="brand-star" cx="16" cy="14" r="2"></circle><circle class="brand-star" cx="46" cy="12" r="1.5"></circle><path class="whale-body" d="M12 40c6-9 16-13 22-8 4 3 8 3 14 0-2 8-9 15-18 15-7 0-13-3-18-7z"></path><path class="whale-fin" d="M34 32c2-4 6-6 9-5-1 3-4 5-9 5z"></path><circle class="whale-eye" cx="44" cy="34" r="1.1"></circle></svg>© 2026 我的个人主页</p>
+        </div>
+    </footer>
+
+    <canvas id="rainCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('rainCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let W, H;
+        function resizeCanvas() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Raindrop {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * H; 
+            }
+            reset() {
+                this.x = Math.random() * W;
+                this.y = Math.random() * -H; 
+                this.length = Math.random() * 15 + 10; 
+                this.speed = Math.random() * 8 + 8; 
+                this.opacity = Math.random() * 0.3 + 0.2; 
+                this.width = Math.random() * 1.2 + 0.5; 
+            }
+            update() {
+                this.y += this.speed;
+                if (this.y > H) {
+                    ripples.push(new Ripple(this.x, H - 10)); 
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x - this.length * 0.1, this.y + this.length); 
+                ctx.strokeStyle = `rgba(200, 240, 255, ${this.opacity})`; 
+                ctx.lineWidth = this.width;
+                ctx.stroke();
+            }
+        }
+
+        class Ripple {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y + Math.random() * 10 - 5; 
+                this.radius = 1;
+                this.opacity = 0.8;
+                this.speed = Math.random() * 0.8 + 0.4;
+            }
+            update() {
+                this.radius += this.speed;
+                this.opacity -= 0.015; 
+            }
+            draw() {
+                if (this.opacity <= 0) return;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(180, 220, 255, ${this.opacity})`; 
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        const raindrops = [];
+        const ripples = [];
+        for (let i = 0; i < 150; i++) { raindrops.push(new Raindrop()); }
+
+        function animateRain() {
+            ctx.clearRect(0, 0, W, H);
+            raindrops.forEach(drop => { drop.update(); drop.draw(); });
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                ripples[i].update();
+                ripples[i].draw();
+                if (ripples[i].opacity <= 0) ripples.splice(i, 1); 
+            }
+            requestAnimationFrame(animateRain);
+        }
+        animateRain();
+    </script>
+    <script src="js/interactions.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  });
+}
+</script>
+</body>
+</html>

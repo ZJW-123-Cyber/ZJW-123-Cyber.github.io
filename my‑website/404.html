@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 · 页面走丢了 - 我的个人主页</title>
+    <meta name="description" content="这个页面不在本站，返回首页继续浏览我的个人主页。">
+    <meta name="robots" content="noindex,follow">
+    <meta name="theme-color" content="#0f2027">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        .nf-main { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 16px; }
+        .nf-box { max-width: 620px; }
+        .nf-code {
+            font: 800 clamp(5rem, 18vw, 10rem)/1 var(--font-tech);
+            letter-spacing: .06em;
+            background: linear-gradient(135deg, var(--light-blue), var(--accent-yellow));
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            text-shadow: 0 8px 26px rgba(0, 0, 0, .18);
+        }
+        .nf-whale { width: 130px; height: 130px; margin: 6px auto 10px; display: block; animation: nfFloat 4s ease-in-out infinite; }
+        .nf-whale path { fill: rgba(255, 255, 255, .35); stroke: rgba(255, 255, 255, .8); stroke-width: 1.5; }
+        @keyframes nfFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .nf-title { color: #fff; font-size: 1.5rem; margin: 6px 0 10px; text-shadow: 0 2px 8px rgba(0, 0, 0, .5); }
+        .nf-desc { color: #d8e8f5; line-height: 1.8; margin-bottom: 24px; }
+        .nf-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .nf-links a {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 11px 22px; border-radius: 24px; text-decoration: none;
+            font-weight: 600; font-size: .92rem;
+            background: var(--main-blue); color: #fff; border: 1px solid rgba(255, 255, 255, .35);
+            transition: transform .25s ease, filter .25s ease;
+        }
+        .nf-links a:hover { transform: translateY(-3px); filter: brightness(1.12); }
+        .nf-links a.ghost { background: rgba(255, 255, 255, .14); }
+        html[data-theme="light"] .nf-title { color: #0a3d62; text-shadow: none; }
+        html[data-theme="light"] .nf-desc { color: #2c5364; }
+    </style>
+    <script>(function(){try{var t=localStorage.getItem("site-theme"),m=localStorage.getItem("site-theme-mode")||(t==="light"?"light":"dark"),light=m==="light"||(m==="auto"&&matchMedia("(prefers-color-scheme: light)").matches);if(light)document.documentElement.setAttribute("data-theme","light");localStorage.setItem("site-theme",light?"light":"dark");if(localStorage.getItem("site-motion")==="off")document.documentElement.setAttribute("data-motion","off");var sf=localStorage.getItem("siteFont");if(sf&&sf!=="default")document.documentElement.setAttribute("data-font",sf);}catch(e){}})();</script>
+    <script>(function(){try{var a=JSON.parse(localStorage.getItem("siteAccent")||'"ocean"');if(a&&a!=="ocean")document.documentElement.setAttribute("data-accent",a);}catch(e){}})();</script>
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1>我的个人主页</h1>
+            <div class="theme-toggle-wrap"><button class="theme-toggle" type="button" aria-label="切换主题"><span class="theme-toggle-icon">◐</span></button></div>
+            <nav class="site-nav" aria-label="主导航">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于我</a></li>
+                    <li><a href="works.html">我的作品</a></li>
+                    <li><a href="hobby.html">兴趣爱好</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="nf-main">
+        <div class="nf-box">
+            <div class="nf-code" aria-label="404">404</div>
+            <svg class="nf-whale" viewBox="0 0 64 64" aria-hidden="true">
+                <path d="M12 40c6-9 16-13 22-8 4 3 8 3 14 0-2 8-9 15-18 15-7 0-13-3-18-7z"></path>
+                <path d="M34 32c2-4 6-6 9-5-1 3-4 5-9 5z"></path>
+                <circle cx="44" cy="34" r="1.3" fill="#0b2b3c" stroke="none"></circle>
+            </svg>
+            <h2 class="nf-title">这片海域好像没有这个页面</h2>
+            <p class="nf-desc">可能是链接写错了，也可能页面被海浪带走了。<br>别担心，回到首页重新出发就好。</p>
+            <div class="nf-links">
+                <a href="index.html">返回首页</a>
+                <a href="works.html" class="ghost">看看作品</a>
+                <a href="sitemap.html" class="ghost">站点地图</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>© 2026 我的个人主页 · 星空与海洋</p></div>
+    </footer>
+
+    <script src="js/interactions.js"></script>
+    <script src="js/extras.js"></script>
+    <script src="js/more.js"></script>
+    <script src="js/upgrade.js"></script>
+    <script src="js/upgrade2.js"></script>
+    <script src="js/upgrade3.js"></script>
+    <script src="js/upgrade4.js"></script>
+    <script src="js/upgrade5.js"></script>
+    <script src="js/upgrade6.js"></script>
+    <script src="js/upgrade7.js"></script>
+    <script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
+</body>
+</html>

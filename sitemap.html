@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>站点地图 - 我的个人主页</title>
+    <meta name="description" content="我的个人主页全部页面导航：首页、关于我、我的作品、兴趣爱好与作品子页。">
+    <meta name="theme-color" content="#0f2027">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="canonical" href="sitemap.html">
+    <meta name="robots" content="index,follow">
+    <script>(function(){try{var u=location.origin+location.pathname.replace(/index[.]html$/,"");var c=document.querySelector("link[rel=canonical]");if(c)c.href=u;var og=document.querySelector("meta[property=og:url]");if(!og){og=document.createElement("meta");og.setAttribute("property","og:url");document.head.appendChild(og);}og.content=u;}catch(e){}})();</script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        main.container { flex: 1; padding-top: 46px; padding-bottom: 60px; }
+        .map-title { text-align: center; margin-bottom: 8px; }
+        .map-sub { text-align: center; color: #cfe6f6; margin-bottom: 30px; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+        .map-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+        .map-card {
+            display: block; text-decoration: none; padding: 22px; border-radius: 16px;
+            background: rgba(255, 255, 255, .78); border: 1px solid rgba(255, 255, 255, .9);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .18); color: #1a2b3c;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .map-card:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0, 0, 0, .28); }
+        .map-card__icon {
+            width: 42px; height: 42px; border-radius: 12px; margin-bottom: 12px;
+            background: rgba(0, 119, 190, .12); color: #005a9c;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .map-card__icon .ui-icon { width: 22px; height: 22px; }
+        .map-card h3 { margin: 0 0 8px; color: #005a9c; font-size: 1.12rem; }
+        .map-card p { margin: 0; font-size: .86rem; line-height: 1.6; color: #4a6072; }
+        .map-card__path { display: block; margin-top: 12px; font: .74rem var(--font-tech); color: #7b8b99; }
+        html[data-theme="light"] .map-sub { color: #2c5364; text-shadow: none; }
+    </style>
+    <script>(function(){try{var t=localStorage.getItem("site-theme"),m=localStorage.getItem("site-theme-mode")||(t==="light"?"light":"dark"),light=m==="light"||(m==="auto"&&matchMedia("(prefers-color-scheme: light)").matches);if(light)document.documentElement.setAttribute("data-theme","light");localStorage.setItem("site-theme",light?"light":"dark");if(localStorage.getItem("site-motion")==="off")document.documentElement.setAttribute("data-motion","off");var sf=localStorage.getItem("siteFont");if(sf&&sf!=="default")document.documentElement.setAttribute("data-font",sf);}catch(e){}})();</script>
+    <script>(function(){try{var a=JSON.parse(localStorage.getItem("siteAccent")||'"ocean"');if(a&&a!=="ocean")document.documentElement.setAttribute("data-accent",a);}catch(e){}})();</script>
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1>我的个人主页</h1>
+            <div class="theme-toggle-wrap"><button class="theme-toggle" type="button" aria-label="切换主题"><span class="theme-toggle-icon">◐</span></button></div>
+            <nav class="site-nav" aria-label="主导航">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于我</a></li>
+                    <li><a href="works.html">我的作品</a></li>
+                    <li><a href="hobby.html">兴趣爱好</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="map-title">站点地图</h2>
+        <p class="map-sub">一站看全：6 个页面，想去哪里点哪里</p>
+        <div class="map-grid">
+            <a class="map-card" href="index.html">
+                <span class="map-card__icon"><span data-icon="sparkle"></span></span>
+                <h3>首页</h3>
+                <p>认识我、留言墙、成就徽章、年度进度与数据看板。</p>
+                <span class="map-card__path">index.html</span>
+            </a>
+            <a class="map-card" href="about.html">
+                <span class="map-card__icon"><span data-icon="heart"></span></span>
+                <h3>关于我</h3>
+                <p>个人简介、技能条与雷达图、成长时间线、联系方式，还可一键打印简历。</p>
+                <span class="map-card__path">about.html</span>
+            </a>
+            <a class="map-card" href="works.html">
+                <span class="map-card__icon"><span data-icon="folder"></span></span>
+                <h3>我的作品</h3>
+                <p>作品集列表，支持技术栈筛选、收藏、点赞与最热优先排序。</p>
+                <span class="map-card__path">works.html</span>
+            </a>
+            <a class="map-card" href="hobby.html">
+                <span class="map-card__icon"><span data-icon="gamepad"></span></span>
+                <h3>兴趣爱好</h3>
+                <p>阅读、运动、音乐、画画，以及番茄专注钟与小目标清单。</p>
+                <span class="map-card__path">hobby.html</span>
+            </a>
+            <a class="map-card" href="album.html">
+                <span class="map-card__icon"><span data-icon="play"></span></span>
+                <h3>3D 旋转相册</h3>
+                <p>用 HTML 与 CSS 3D 实现的双层 12 图旋转立方体相册。</p>
+                <span class="map-card__path">album.html</span>
+            </a>
+            <a class="map-card" href="heart.html">
+                <span class="map-card__icon"><span data-icon="bulb"></span></span>
+                <h3>3D 跳动爱心</h3>
+                <p>用 Three.js 制作的 3D 跳动毛刺爱心动画作品。</p>
+                <span class="map-card__path">heart.html</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container"><p>© 2026 我的个人主页 · 星空与海洋</p></div>
+    </footer>
+
+    <script src="js/interactions.js"></script>
+    <script src="js/extras.js"></script>
+    <script src="js/more.js"></script>
+    <script src="js/upgrade.js"></script>
+    <script src="js/upgrade2.js"></script>
+    <script src="js/upgrade3.js"></script>
+    <script src="js/upgrade4.js"></script>
+    <script src="js/upgrade5.js"></script>
+    <script src="js/upgrade6.js"></script>
+    <script src="js/upgrade7.js"></script>
+    <script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
+</body>
+</html>
