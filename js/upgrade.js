@@ -308,7 +308,7 @@
     function init() {
         trackVisit();
         var modules = [
-            initAccent, initSkyClock, initYearProgress, initBadges,
+            initAccent, initSkyClock, initBadges,
             initWorkFavorites, initBottleView, initContactCopy, initPagePolish
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });
