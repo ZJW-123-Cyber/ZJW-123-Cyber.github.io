@@ -1310,13 +1310,6 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
 
 .moon-info h3 { color: var(--t-heading); text-shadow: var(--t-heading-shadow); font-size: 1.9rem; margin-bottom: 14px; }
 .moon-info p { color: var(--t-soft-text); line-height: 1.9; margin-bottom: 16px; }
-.moon-meta { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0 0 24px; }
-.moon-meta li {
-    padding: 6px 13px; border-radius: 999px; font-size: .82rem;
-    color: var(--t-heading);
-    border: 1px solid rgba(87, 200, 232, .55);
-    background: rgba(87, 200, 232, .12);
-}
 .moon-info .button { box-shadow: 0 8px 22px rgba(0, 119, 190, .28); }
 .moon-note { font-size: .82rem; opacity: .8; margin-top: 12px !important; }
 
@@ -1362,7 +1355,6 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
     .moon-grid { grid-template-columns: 1fr; justify-items: center; max-width: 420px; gap: 30px; }
     .moon-card { width: min(78vw, 340px); }
     .moon-info { text-align: center; }
-    .moon-meta { justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
     .moon-play { animation: none; }
