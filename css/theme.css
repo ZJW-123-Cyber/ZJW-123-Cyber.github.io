@@ -1369,8 +1369,96 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
 }
 html.focus-mode .moon-zone { opacity: .12; }
 
+/* ===== 静心一偈：菩提偈（竖排书法感诗牌，与星光影像金蓝色系呼应） ===== */
+.zen-section {
+    position: relative;
+    max-width: 760px;
+    margin: 56px auto 8px;
+    padding: 42px 24px 40px;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: 26px;
+    text-align: center;
+    background:
+        radial-gradient(120% 140% at 50% -20%, rgba(87, 200, 232, .22), transparent 62%),
+        linear-gradient(150deg, rgba(9, 30, 46, .92), rgba(16, 48, 66, .88));
+    border: 1px solid rgba(255, 216, 107, .32);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .42), inset 0 0 40px rgba(87, 200, 232, .1);
+}
+/* 星点微光 */
+.zen-section::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background-image:
+        radial-gradient(1.6px 1.6px at 12% 22%, rgba(255, 255, 255, .85), transparent),
+        radial-gradient(1.2px 1.2px at 82% 18%, rgba(255, 216, 107, .9), transparent),
+        radial-gradient(1.4px 1.4px at 68% 74%, rgba(255, 255, 255, .7), transparent),
+        radial-gradient(1px 1px at 26% 80%, rgba(255, 255, 255, .7), transparent),
+        radial-gradient(1.2px 1.2px at 45% 12%, rgba(255, 216, 107, .75), transparent),
+        radial-gradient(1px 1px at 92% 58%, rgba(255, 255, 255, .6), transparent);
+    animation: zenTwinkle 4.5s ease-in-out infinite alternate;
+}
+@keyframes zenTwinkle { from { opacity: .45; } to { opacity: 1; } }
+
+.zen-eyebrow {
+    margin: 0 0 26px;
+    font-size: .82rem; letter-spacing: .12em;
+    color: rgba(255, 216, 107, .82);
+    text-shadow: 0 0 12px rgba(255, 216, 107, .4);
+}
+.zen-poem {
+    display: flex;
+    flex-direction: row-reverse;      /* 从右往左成列 */
+    justify-content: center;
+    gap: clamp(16px, 4vw, 36px);
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: 0 auto;
+    min-height: 260px;
+}
+.zen-line {
+    font-family: var(--font-display, "Noto Serif SC", "Songti SC", serif);
+    font-size: clamp(1.35rem, 3.4vw, 2rem);
+    line-height: 1; letter-spacing: .32em;
+    font-weight: 600;
+    background: linear-gradient(180deg, #fff7df 0%, #ffe6a0 45%, #ffcf6b 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(255, 200, 90, .35));
+    opacity: 0;
+    animation: zenLineIn .9s cubic-bezier(.2, .7, .25, 1) forwards;
+}
+.zen-line:nth-child(1) { animation-delay: .1s; }
+.zen-line:nth-child(2) { animation-delay: .28s; }
+.zen-line:nth-child(3) { animation-delay: .46s; }
+.zen-line:nth-child(4) { animation-delay: .64s; }
+@keyframes zenLineIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.zen-sign {
+    margin: 26px 0 0;
+    font-size: .82rem; letter-spacing: .08em;
+    color: var(--t-note-text);
+}
+html[data-theme="light"] .zen-sign { color: #cfe6f5; }
+
+@media (max-width: 520px) {
+    .zen-section { padding: 34px 14px 32px; margin: 40px 12px 8px; }
+    .zen-poem { gap: 14px; min-height: 230px; }
+    .zen-eyebrow { margin-bottom: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .zen-section::before { animation: none; }
+    .zen-line { opacity: 1; animation: none; }
+}
+html[data-motion="off"] .zen-section::before { animation: none; }
+html[data-motion="off"] .zen-line { opacity: 1; animation: none; }
+html.focus-mode .zen-section { opacity: .12; }
+
 @media print {
     .moon-zone, .moon-modal { display: none !important; }
+    .zen-section { display: none !important; }
 }
 
 @media print {
