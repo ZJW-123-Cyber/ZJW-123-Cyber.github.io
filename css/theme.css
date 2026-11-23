@@ -1486,30 +1486,47 @@ html.focus-mode .zen-section { opacity: .12; }
     .sky-clock__time { font-size: 1.35rem !important; }
 }
 
-/* ===== 悬浮工具列统一移至左侧（音乐播放器让位右侧） ===== */
-/* 右侧一整列：阅读工具/专注/主色/引导/数据管理/收藏/搜索/回顶/访客徽章 */
+/* ===== 悬浮工具列统一移至左侧；音乐播放器置于竖列最底 ===== */
 .reader-tool-btn,
 .color-btn, .guide-btn,
 .data-manager-btn,
 .focus-mode-btn,
 .search-fab,
 .back-to-top,
-.visitor-badge {
+.visitor-badge,
+.fav-panel-btn,
+.music-player {
     left: 22px;
     right: auto;
 }
-/* 收藏按钮与访客徽章原本 right:24，单独纠正 */
-.fav-panel-btn { left: 22px; right: auto; }
-/* 音乐播放器让位到右侧 */
-.music-player { left: auto; right: 22px; }
+/* 竖列位置：音乐播放器最底，其余依次向上等间距排布 */
+.music-player     { bottom: 22px; }
+.back-to-top      { bottom: 84px; }
+.search-fab       { bottom: 142px; }
+.fav-panel-btn    { bottom: 198px; }
+.visitor-badge    { bottom: 250px; }
+.data-manager-btn { bottom: 300px; }
+.color-btn        { bottom: 352px; }
+.guide-btn        { bottom: 404px; }
+.focus-mode-btn   { bottom: 456px; }
+.reader-tool-btn  { bottom: 508px; }
 /* 主色面板 / 阅读面板跟随按钮移到左侧展开 */
 .color-panel { left: 70px; right: auto; }
 .reader-panel { left: 22px; right: auto; }
 @media (max-width: 560px) {
     .reader-tool-btn, .color-btn, .guide-btn, .data-manager-btn,
     .focus-mode-btn, .search-fab, .back-to-top, .visitor-badge,
-    .fav-panel-btn { left: 14px; }
-    .music-player { right: 14px; }
+    .fav-panel-btn, .music-player { left: 14px; }
+    .music-player     { bottom: 16px; }
+    .back-to-top      { bottom: 72px; }
+    .search-fab       { bottom: 124px; }
+    .fav-panel-btn    { bottom: 176px; }
+    .visitor-badge    { bottom: 224px; }
+    .data-manager-btn { bottom: 272px; }
+    .color-btn        { bottom: 320px; }
+    .guide-btn        { bottom: 368px; }
+    .focus-mode-btn   { bottom: 416px; }
+    .reader-tool-btn  { bottom: 464px; }
     .color-panel, .reader-panel { left: 56px; }
 }
 
