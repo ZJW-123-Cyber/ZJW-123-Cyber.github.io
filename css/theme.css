@@ -1216,6 +1216,154 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
     .card::after { animation: none; background-position: 50% 0; }
 }
 
+/* ==========================================================
+   星光影像：竖屏短片展示（星空海洋主题，深浅通用）
+   ========================================================== */
+.moon-zone {
+    position: relative;
+    padding: 54px 20px 62px;
+    overflow: hidden;
+}
+.moon-zone::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+        radial-gradient(circle at 22% 34%, rgba(87, 200, 232, .18), transparent 46%),
+        radial-gradient(circle at 78% 64%, rgba(255, 216, 107, .16), transparent 46%);
+}
+.moon-zone__head { position: relative; text-align: center; margin-bottom: 34px; }
+.moon-zone__head h2 { display: inline-flex; align-items: center; gap: 10px; }
+.moon-zone__head p { color: var(--t-soft-text); max-width: 620px; margin: 10px auto 0; }
+
+.moon-grid {
+    position: relative;
+    max-width: 1040px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+}
+.moon-card {
+    position: relative;
+    padding: 9px; border-radius: 24px;
+    background: linear-gradient(140deg, rgba(87, 200, 232, .65), rgba(255, 216, 107, .8));
+    box-shadow: 0 22px 60px rgba(2, 18, 34, .42), inset 0 0 0 1px rgba(255, 255, 255, .22);
+    transform: rotate(-1.5deg);
+    transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s;
+}
+.moon-card:hover {
+    transform: rotate(0) translateY(-8px) scale(1.02);
+    box-shadow: 0 30px 72px rgba(2, 18, 34, .5), 0 0 26px rgba(255, 216, 107, .35);
+}
+.moon-card__moon {
+    position: absolute; right: -18px; top: -20px;
+    width: 52px; height: 52px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: linear-gradient(145deg, #fff6cf, #ffd300);
+    color: #5b4210; font-size: 1.6rem; line-height: 1;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, .55), 0 0 26px rgba(255, 216, 107, .85);
+}
+.moon-poster {
+    position: relative; display: block; width: 100%;
+    aspect-ratio: 9 / 16;
+    border: 0; padding: 0; border-radius: 17px; overflow: hidden;
+    background: #05101c; cursor: pointer;
+}
+.moon-poster img {
+    width: 100%; height: 100%; display: block; object-fit: cover;
+    transition: transform .6s ease, filter .4s ease;
+}
+.moon-poster:hover img { transform: scale(1.06); filter: brightness(.86); }
+.moon-poster::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, transparent 55%, rgba(3, 12, 24, .72));
+}
+.moon-play {
+    position: absolute; left: 50%; top: 50%; z-index: 2;
+    width: 76px; height: 76px; border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 216, 107, .94);
+    border: 3px solid rgba(255, 255, 255, .95);
+    display: grid; place-items: center;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .45);
+    animation: moonPulse 2.4s ease-out infinite;
+}
+.moon-play::after {
+    content: ""; margin-left: 5px;
+    width: 0; height: 0;
+    border-left: 22px solid #26313c;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+}
+@keyframes moonPulse {
+    0%   { box-shadow: 0 8px 28px rgba(0, 0, 0, .45), 0 0 0 0 rgba(255, 216, 107, .55); }
+    70%  { box-shadow: 0 8px 28px rgba(0, 0, 0, .45), 0 0 0 20px rgba(255, 216, 107, 0); }
+    100% { box-shadow: 0 8px 28px rgba(0, 0, 0, .45), 0 0 0 0 rgba(255, 216, 107, 0); }
+}
+.moon-poster__tag {
+    position: absolute; left: 12px; bottom: 12px; z-index: 2;
+    padding: 6px 12px; border-radius: 999px;
+    font-size: .8rem; font-weight: 700; color: #eaf8ff;
+    background: rgba(6, 20, 32, .68);
+    border: 1px solid rgba(255, 255, 255, .32);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+
+.moon-info h3 { color: var(--t-heading); text-shadow: var(--t-heading-shadow); font-size: 1.9rem; margin-bottom: 14px; }
+.moon-info p { color: var(--t-soft-text); line-height: 1.9; margin-bottom: 16px; }
+.moon-meta { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0 0 24px; }
+.moon-meta li {
+    padding: 6px 13px; border-radius: 999px; font-size: .82rem;
+    color: var(--t-heading);
+    border: 1px solid rgba(87, 200, 232, .55);
+    background: rgba(87, 200, 232, .12);
+}
+.moon-info .button { box-shadow: 0 8px 22px rgba(0, 119, 190, .28); }
+.moon-note { font-size: .82rem; opacity: .8; margin-top: 12px !important; }
+
+.moon-modal { position: fixed; inset: 0; z-index: 12000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.moon-modal.open { display: flex; }
+.moon-modal__shade {
+    position: absolute; inset: 0;
+    background: rgba(3, 12, 24, .82);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.moon-modal__box {
+    position: relative; z-index: 1;
+    max-width: min(92vw, 520px); max-height: 92vh; padding: 10px;
+    border-radius: 22px;
+    background: linear-gradient(140deg, rgba(87, 200, 232, .55), rgba(255, 216, 107, .65));
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+}
+.moon-modal video { display: block; width: 100%; max-height: 86vh; border-radius: 14px; background: #000; }
+.moon-modal__close {
+    position: absolute; z-index: 3; top: -14px; right: -14px;
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .8);
+    background: linear-gradient(135deg, var(--main-blue), #2bb6c4);
+    color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+}
+.moon-modal__hint {
+    position: absolute; left: 50%; bottom: -30px; transform: translateX(-50%);
+    color: #cfe6f5; font-size: .8rem; white-space: nowrap;
+}
+
+@media (max-width: 820px) {
+    .moon-grid { grid-template-columns: 1fr; justify-items: center; max-width: 420px; gap: 30px; }
+    .moon-card { width: min(78vw, 340px); }
+    .moon-info { text-align: center; }
+    .moon-meta { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .moon-play { animation: none; }
+    .moon-card, .moon-poster img { transition: none; }
+}
+html.focus-mode .moon-zone { opacity: .12; }
+
+@media print {
+    .moon-zone, .moon-modal { display: none !important; }
+}
+
 @media print {
     .poster-btn, .vcard-btn, .csv-btn, .scroll-restore-top,
     .img-zoom-hint, .drag-handle, .char-ring-wrap, .card::after { display: none !important; }

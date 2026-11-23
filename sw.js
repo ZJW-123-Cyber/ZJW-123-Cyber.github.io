@@ -1,7 +1,7 @@
 /* ============================================================
    sw.js — Service Worker，让网站可安装并支持离线访问
    ============================================================ */
-const CACHE_NAME = 'my-website-v12';
+const CACHE_NAME = 'my-website-v13';
 
 const CORE_ASSETS = [
     './',
@@ -24,6 +24,8 @@ const CORE_ASSETS = [
     './js/upgrade5.js',
     './js/upgrade6.js',
     './js/upgrade7.js',
+    './js/video.js',
+    './media/moon-poster.png',
     './favicon.svg',
     './manifest.json',
     './icons/icon-192.png',
@@ -64,6 +66,8 @@ self.addEventListener('fetch', function (event) {
     if (req.method !== 'GET') return;
     const url = new URL(req.url);
     if (url.origin !== self.location.origin) return; // 不处理 CDN 等外部资源
+    // 视频使用 Range 分段请求，交给浏览器原生处理，避免缓存逻辑干扰拖动进度
+    if (url.pathname.indexOf('.mp4') !== -1) return;
 
     event.respondWith(
         fetch(req).then(function (res) {
