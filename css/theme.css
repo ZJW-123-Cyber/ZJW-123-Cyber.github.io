@@ -1335,13 +1335,23 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
     box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
 }
 .moon-modal video { display: block; width: 100%; max-height: 86vh; border-radius: 14px; background: #000; }
+/* 关闭按钮固定在视口右上角、导航栏下方，避免与视频边框/导航栏重叠 */
 .moon-modal__close {
-    position: absolute; z-index: 3; top: -14px; right: -14px;
-    width: 42px; height: 42px; border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, .8);
+    position: fixed; z-index: 12002;
+    top: 74px; right: clamp(14px, 4vw, 36px);
+    width: 46px; height: 46px; border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .72);
+    background: rgba(8, 24, 40, .82);
+    color: #fff; font-size: 1.7rem; line-height: 1; cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.moon-modal__close:hover, .moon-modal__close:focus-visible {
+    transform: rotate(90deg) scale(1.06);
     background: linear-gradient(135deg, var(--main-blue), #2bb6c4);
-    color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .6);
+    outline: none;
 }
 .moon-modal__hint {
     position: absolute; left: 50%; bottom: -30px; transform: translateX(-50%);
