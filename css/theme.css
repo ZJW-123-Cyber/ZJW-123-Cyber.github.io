@@ -1503,17 +1503,18 @@ html.focus-mode .zen-section { opacity: .12; }
 .reader-tool-btn, .color-btn, .guide-btn, .data-manager-btn,
 .focus-mode-btn, .fav-panel-btn, .search-fab, .back-to-top,
 .music-player__btn { width: 46px; height: 46px; }
-/* 竖列位置：音乐播放器最底，其余依次向上等间距排布 */
+/* 竖列位置：音乐播放器最底，其余依次向上等间距排布（间距 56px，无空档） */
 .music-player     { bottom: 22px; }
-.back-to-top      { bottom: 84px; }
-.search-fab       { bottom: 142px; }
-.fav-panel-btn    { bottom: 198px; }
-.visitor-badge    { bottom: 250px; }
-.data-manager-btn { bottom: 300px; }
-.color-btn        { bottom: 352px; }
-.guide-btn        { bottom: 404px; }
-.focus-mode-btn   { bottom: 456px; }
-.reader-tool-btn  { bottom: 508px; }
+.back-to-top      { bottom: 78px; }
+.search-fab       { bottom: 134px; }
+.fav-panel-btn    { bottom: 190px; }
+.visitor-badge    { bottom: 246px; }
+.data-manager-btn { bottom: 302px; }
+.color-btn        { bottom: 358px; }
+.focus-mode-btn   { bottom: 414px; }
+.reader-tool-btn  { bottom: 470px; }
+/* 回顶按钮始终显示，避免隐藏时竖列出现空档（保留点击回顶功能） */
+.back-to-top { opacity: 1 !important; visibility: visible !important; transform: none !important; }
 /* 主色面板 / 阅读面板跟随按钮移到左侧展开 */
 .color-panel { left: 70px; right: auto; }
 .reader-panel { left: 22px; right: auto; }
@@ -1526,13 +1527,12 @@ html.focus-mode .zen-section { opacity: .12; }
     .music-player__btn { width: 46px; height: 46px; }
     .music-player     { bottom: 16px; }
     .back-to-top      { bottom: 72px; }
-    .search-fab       { bottom: 124px; }
-    .fav-panel-btn    { bottom: 176px; }
-    .visitor-badge    { bottom: 224px; }
-    .data-manager-btn { bottom: 272px; }
-    .color-btn        { bottom: 320px; }
-    .guide-btn        { bottom: 368px; }
-    .focus-mode-btn   { bottom: 416px; }
+    .search-fab       { bottom: 128px; }
+    .fav-panel-btn    { bottom: 184px; }
+    .visitor-badge    { bottom: 240px; }
+    .data-manager-btn { bottom: 296px; }
+    .color-btn        { bottom: 352px; }
+    .focus-mode-btn   { bottom: 408px; }
     .reader-tool-btn  { bottom: 464px; }
     .color-panel, .reader-panel { left: 56px; }
 }
