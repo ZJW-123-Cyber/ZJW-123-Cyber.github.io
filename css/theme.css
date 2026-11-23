@@ -1537,3 +1537,18 @@ html.focus-mode .zen-section { opacity: .12; }
     .color-panel, .reader-panel { left: 56px; }
 }
 
+/* ===== 修复：音频频谱 Canvas 不再挤占 flex 位置，播放按钮回归左侧竖列 ===== */
+.music-player .audio-spectrum {
+    position: absolute !important;
+    left: 54px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+.music-player.playing .audio-spectrum { opacity: 1; }
+@media (max-width: 560px) {
+    .music-player .audio-spectrum { display: none; }
+}
+
