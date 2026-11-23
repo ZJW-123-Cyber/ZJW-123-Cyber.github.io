@@ -1408,15 +1408,15 @@ html.focus-mode .moon-zone { opacity: .12; }
 }
 .zen-poem {
     display: flex;
-    flex-direction: row-reverse;      /* 从右往左成列 */
+    flex-direction: row-reverse;      /* 第一句排在最右，符合竖排从右往左的阅读顺序 */
     justify-content: center;
     gap: clamp(16px, 4vw, 36px);
-    writing-mode: vertical-rl;
-    text-orientation: upright;
     margin: 0 auto;
     min-height: 260px;
 }
 .zen-line {
+    writing-mode: vertical-rl;        /* 每句自身竖排 */
+    text-orientation: upright;
     font-family: var(--font-display, "Noto Serif SC", "Songti SC", serif);
     font-size: clamp(1.35rem, 3.4vw, 2rem);
     line-height: 1; letter-spacing: .32em;
