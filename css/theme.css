@@ -1327,6 +1327,11 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
     background: linear-gradient(140deg, rgba(87, 200, 232, .55), rgba(255, 216, 107, .65));
     box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
 }
+/* 弹层背景雨丝：铺满遮罩之上、视频框之下，与“关于我”页面下雨效果一致 */
+.moon-modal__rain {
+    position: absolute; inset: 0; z-index: 0;
+    width: 100%; height: 100%; pointer-events: none;
+}
 .moon-modal video { display: block; width: 100%; max-height: 86vh; border-radius: 14px; background: #000; }
 /* 关闭按钮固定在视口右上角、导航栏下方，避免与视频边框/导航栏重叠 */
 .moon-modal__close {
