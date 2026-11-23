@@ -257,6 +257,53 @@
         setTimeout(type, 450);
     }
 
+    /* ---------- 禅语逐字打印（与首页打字机同款效果） ---------- */
+    function initZenTypewriter() {
+        var lines = Array.prototype.slice.call(document.querySelectorAll('.zen-line[data-text]'));
+        if (!lines.length) return;
+        var reduce = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ||
+            document.documentElement.getAttribute('data-motion') === 'off';
+        // 减少动画时直接显示全文
+        if (reduce) return;
+
+        var started = false;
+        function play() {
+            if (started) return;
+            started = true;
+            var stagger = 320; // 每句起始错开，从右往左依次书写
+            lines.forEach(function (el, lineIndex) {
+                var text = el.getAttribute('data-text') || '';
+                el.textContent = '';
+                var i = 0;
+                setTimeout(function () {
+                    el.classList.add('is-typing');
+                    function step() {
+                        el.textContent = text.slice(0, ++i);
+                        if (i < text.length) {
+                            setTimeout(step, 150);
+                        } else {
+                            el.classList.remove('is-typing');
+                        }
+                    }
+                    step();
+                }, lineIndex * stagger);
+            });
+        }
+
+        // 进入视口才开始打印；无 IntersectionObserver 时延时直接开始
+        var zone = document.getElementById('zenPoem') || lines[0];
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) { play(); io.disconnect(); }
+                });
+            }, { threshold: 0.3 });
+            io.observe(zone);
+        } else {
+            setTimeout(play, 500);
+        }
+    }
+
     /* ---------- 7. Hero 背景视差 ---------- */
     function initHeroParallax() {
         var hero = document.querySelector('.hero');
@@ -694,6 +741,7 @@
         initLightbox();
         initReveal();
         initTypewriter();
+        initZenTypewriter();
         initHeroParallax();
         initSkillBars();
         initTheme();
