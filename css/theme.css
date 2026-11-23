@@ -1486,3 +1486,30 @@ html.focus-mode .zen-section { opacity: .12; }
     .sky-clock__time { font-size: 1.35rem !important; }
 }
 
+/* ===== 悬浮工具列统一移至左侧（音乐播放器让位右侧） ===== */
+/* 右侧一整列：阅读工具/专注/主色/引导/数据管理/收藏/搜索/回顶/访客徽章 */
+.reader-tool-btn,
+.color-btn, .guide-btn,
+.data-manager-btn,
+.focus-mode-btn,
+.search-fab,
+.back-to-top,
+.visitor-badge {
+    left: 22px;
+    right: auto;
+}
+/* 收藏按钮与访客徽章原本 right:24，单独纠正 */
+.fav-panel-btn { left: 22px; right: auto; }
+/* 音乐播放器让位到右侧 */
+.music-player { left: auto; right: 22px; }
+/* 主色面板 / 阅读面板跟随按钮移到左侧展开 */
+.color-panel { left: 70px; right: auto; }
+.reader-panel { left: 22px; right: auto; }
+@media (max-width: 560px) {
+    .reader-tool-btn, .color-btn, .guide-btn, .data-manager-btn,
+    .focus-mode-btn, .search-fab, .back-to-top, .visitor-badge,
+    .fav-panel-btn { left: 14px; }
+    .music-player { right: 14px; }
+    .color-panel, .reader-panel { left: 56px; }
+}
+
