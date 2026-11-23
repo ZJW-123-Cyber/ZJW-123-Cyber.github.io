@@ -1313,7 +1313,8 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
 .moon-info .button { box-shadow: 0 8px 22px rgba(0, 119, 190, .28); }
 .moon-note { font-size: .82rem; opacity: .8; margin-top: 12px !important; }
 
-.moon-modal { position: fixed; inset: 0; z-index: 12000; display: none; align-items: center; justify-content: center; padding: 20px; }
+/* 顶部留出固定导航栏高度，避免视频被遮挡；底部留出提示文字空间 */
+.moon-modal { position: fixed; inset: 0; z-index: 12000; display: none; align-items: center; justify-content: center; padding: 72px 20px 34px; }
 .moon-modal.open { display: flex; }
 .moon-modal__shade {
     position: absolute; inset: 0;
@@ -1332,7 +1333,8 @@ html:not([data-theme="light"]) .work-img:hover { filter: brightness(1.02) satura
     position: absolute; inset: 0; z-index: 0;
     width: 100%; height: 100%; pointer-events: none;
 }
-.moon-modal video { display: block; width: 100%; max-height: 86vh; border-radius: 14px; background: #000; }
+/* 视频按可用高度自适应（减去顶部导航与底部提示），保证完整显示不被裁切 */
+.moon-modal video { display: block; width: 100%; max-height: calc(100vh - 150px); border-radius: 14px; background: #000; }
 /* 关闭按钮固定在视口右上角、导航栏下方，避免与视频边框/导航栏重叠 */
 .moon-modal__close {
     position: fixed; z-index: 12002;
