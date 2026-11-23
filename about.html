@@ -170,6 +170,33 @@
         }
         footer p { margin: 0; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
         footer .copyright { margin-top: 6px; font-size: 0.8rem; opacity: 0.85; }
+
+        /* ===== 关于页顶部：左禅语诗牌 / 右翻转名片 并排（填充红圈空白区） ===== */
+        .about-hero-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: clamp(18px, 3.5vw, 48px);
+            margin: 6px 0 30px;
+        }
+        .about-hero-row .zen-section {
+            flex: 1 1 380px;
+            max-width: 480px;
+            margin: 0;
+            padding: 30px 20px 26px;
+            border-radius: 22px;
+        }
+        .about-hero-row .zen-eyebrow { margin-bottom: 18px; font-size: .74rem; }
+        .about-hero-row .zen-poem { gap: clamp(12px, 2.4vw, 24px); min-height: 210px; }
+        .about-hero-row .zen-line { font-size: clamp(1.05rem, 2.4vw, 1.5rem); letter-spacing: .28em; }
+        .about-hero-row .zen-sign { margin-top: 18px; font-size: .74rem; }
+        .about-hero-row .flip-card { flex: 0 1 340px; margin: 0; }
+        @media (max-width: 760px) {
+            .about-hero-row { flex-direction: column; }
+            .about-hero-row .zen-section { width: 100%; max-width: 480px; }
+            .about-hero-row .flip-card { width: 100%; max-width: 360px; }
+        }
     </style>
     <link rel="stylesheet" href="css/theme.css">
 </head>
@@ -192,6 +219,17 @@
 
     <main class="container" id="main-content">
         <h2 class="about-title reveal" style="--reveal-delay: 0s"><span data-icon="wave" style="vertical-align:-0.08em"></span> 关于我</h2>
+        <div class="about-hero-row">
+        <section class="zen-section" id="zenPoem" aria-label="静心禅语">
+            <p class="zen-eyebrow">◌&nbsp; 静 心 一 偈 &nbsp;◌</p>
+            <div class="zen-poem" role="img" aria-label="菩提本无树，明镜亦非台，本来无一物，何处惹尘埃。">
+                <span class="zen-line" data-text="菩提本无树">菩提本无树</span>
+                <span class="zen-line" data-text="明镜亦非台">明镜亦非台</span>
+                <span class="zen-line" data-text="本来无一物">本来无一物</span>
+                <span class="zen-line" data-text="何处惹尘埃">何处惹尘埃</span>
+            </div>
+            <p class="zen-sign">— 六祖慧能《菩提偈》</p>
+        </section>
         <div class="flip-card reveal" style="--reveal-delay: 0.08s" aria-label="翻转名片">
             <div class="flip-card__inner">
                 <div class="flip-card__face flip-card__front">
@@ -208,6 +246,7 @@
                 </div>
             </div>
         </div>
+        </div><!-- /.about-hero-row -->
         <div class="about-content">
             <div class="card reveal" style="--reveal-delay: 0.15s">
                 <div class="about-banner" aria-hidden="true"></div>
