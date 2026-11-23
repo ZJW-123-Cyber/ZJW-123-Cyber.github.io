@@ -7,11 +7,10 @@
    4.  音乐频谱可视化（接已有氛围播放器）
    5.  番茄专注钟
    6.  本地待办清单
-   7.  字号与阅读模式（悬浮工具）
-   8.  留言词云
-   9.  留言打卡热力图
-   10. 访问统计面板
-   11. 档案卡 3D 翻转
+   7.  留言词云
+   8.  留言打卡热力图
+   9.  访问统计面板
+   10. 档案卡 3D 翻转
    所有功能特性检测：容器不存在则安全跳过；单模块异常不影响其他。
    兼容深浅双主题、reduced-motion、触屏设备。
    ============================================================ */
@@ -308,42 +307,6 @@
         render();
     }
 
-    /* ---------- 9. 字号与阅读模式 ---------- */
-    function initReadingTools() {
-        if ($('.reading-tools')) return;
-        var tool = document.createElement('div');
-        tool.className = 'reading-tools';
-        tool.setAttribute('role', 'group');
-        tool.setAttribute('aria-label', '阅读设置');
-        tool.innerHTML =
-            '<button type="button" class="rt-btn" id="rtSmaller" aria-label="缩小字号">A-</button>' +
-            '<button type="button" class="rt-btn" id="rtLarger" aria-label="放大字号">A+</button>' +
-            '<button type="button" class="rt-btn rt-mode" id="rtMode" aria-pressed="false" aria-label="切换阅读模式" title="阅读模式">' + icon('bulb') + '</button>';
-        document.body.appendChild(tool);
-
-        var size = storeGet('siteFontSize', 100);
-        function applySize() {
-            document.documentElement.style.fontSize = size + '%';
-        }
-        applySize();
-        $('#rtSmaller', tool).addEventListener('click', function () {
-            size = Math.max(90, size - 10); applySize(); storeSet('siteFontSize', size); toast('字号：' + size + '%', 'info', 1200);
-        });
-        $('#rtLarger', tool).addEventListener('click', function () {
-            size = Math.min(130, size + 10); applySize(); storeSet('siteFontSize', size); toast('字号：' + size + '%', 'info', 1200);
-        });
-        var modeOn = storeGet('siteReadingMode', false);
-        function applyMode() {
-            document.body.classList.toggle('reading-mode', modeOn);
-            $('#rtMode', tool).setAttribute('aria-pressed', String(modeOn));
-        }
-        applyMode();
-        $('#rtMode', tool).addEventListener('click', function () {
-            modeOn = !modeOn; applyMode(); storeSet('siteReadingMode', modeOn);
-            toast(modeOn ? '阅读模式已开启' : '阅读模式已关闭', 'info', 1400);
-        });
-    }
-
     /* ---------- 10. 留言词云 ---------- */
     function initWordCloud() {
         var box = $('#wordCloud');
@@ -482,7 +445,7 @@
         var modules = [
             initChapterNav, initScrollHighlight, initWaveDivider,
             initAudioSpectrum,
-            initPomodoro, initTodo, initReadingTools,
+            initPomodoro, initTodo,
             initWordCloud, initHeatmap, initVisitStats, initFlipCard
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });

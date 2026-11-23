@@ -442,7 +442,7 @@ html[data-theme="light"] .print-resume { color: #0a3d62; border-color: rgba(0, 1
 @media print {
     @page { margin: 16mm; }
     body { background: #fff !important; color: #000 !important; animation: none !important; }
-    .site-header, .site-footer, .chapter-nav, .reading-tools, .music-player,
+    .site-header, .site-footer, .chapter-nav, .music-player,
     .visitor-badge, .back-to-top, .toast-stack, .offline-bar, .data-manager-btn,
     .data-modal, .flip-card, .quiz-wrap, .print-resume, .sky-clock,
     .year-progress, .badge-section, .ocean-waves, canvas, button { display: none !important; }
@@ -781,7 +781,6 @@ html.focus-mode .guide-btn,
 html.focus-mode .back-to-top,
 html.focus-mode .footer-share,
 html.focus-mode .chapter-nav,
-html.focus-mode .reading-tools,
 html.focus-mode .offline-bar,
 html.focus-mode .visitor-badge,
 html.focus-mode .ocean-waves { display: none !important; }

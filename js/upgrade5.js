@@ -75,7 +75,7 @@
 
     /* ---------- 2. 专注模式 ---------- */
     var FOCUS_HIDE = '.search-fab, .music-player, .data-manager-btn, .color-btn, .guide-btn, ' +
-        '.back-to-top, .footer-share, .chapter-nav, .reading-tools, .offline-bar, ' +
+        '.back-to-top, .footer-share, .chapter-nav, .offline-bar, ' +
         '.visitor-badge, .ocean-waves, #rainCanvas, .marine-canvas';
     function initFocusMode() {
         if ($('.focus-mode-btn')) return;
