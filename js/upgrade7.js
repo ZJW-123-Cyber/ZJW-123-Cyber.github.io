@@ -523,21 +523,11 @@
         update();
     }
 
-    /* ---------- 10. 导览补充 ---------- */
-    function initGuideExtra() {
-        var panel = $('.guide-modal__panel');
-        if (!panel || $('.guide-new7', panel)) return;
-        var g = document.createElement('div');
-        g.className = 'guide-group guide-new7';
-        g.innerHTML = '<h4>本次新增（第十一轮）</h4><p>个人名片海报、通讯录名片、留言 CSV 导出、阅读位置记忆、高对比度、图片放大提示、留言拖拽排序、文字高亮标记、字数进度环与卡片流光边框。在 📖 阅读工具里可开关高对比度与清除标记。</p>';
-        panel.appendChild(g);
-    }
-
     function init() {
         var modules = [
             initProfilePoster, initVCard, initCsvExport, initScrollRestore,
             initContrastMode, initImageEnhance, initDragSortMessages,
-            initTextHighlight, initCharRing, initGuideExtra
+            initTextHighlight, initCharRing
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });
     }

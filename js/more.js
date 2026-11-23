@@ -1,5 +1,5 @@
 /* ============================================================
-   more.js — 第四轮升级：11 项全新功能（已移除记忆翻牌与幸运签小游戏）
+   more.js — 第四轮升级（已移除小游戏、词云、热力图、访问统计等模块）
    依赖 interactions.js（window.showToast / window.svgIcon），在其后加载。
    1.  章节导航圆点（右侧，滚动高亮，点击跳转）
    2.  逐字滚动高亮（标题文本节点拆分）
@@ -7,10 +7,7 @@
    4.  音乐频谱可视化（接已有氛围播放器）
    5.  番茄专注钟
    6.  本地待办清单
-   7.  留言词云
-   8.  留言打卡热力图
-   9.  访问统计面板
-   10. 档案卡 3D 翻转
+   7.  档案卡 3D 翻转
    所有功能特性检测：容器不存在则安全跳过；单模块异常不影响其他。
    兼容深浅双主题、reduced-motion、触屏设备。
    ============================================================ */
@@ -39,25 +36,6 @@
         catch (e) { return fallback; }
     }
     function storeSet(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
-
-    function readMessages() {
-        var list = storeGet('homeMessage', []);
-        if (!Array.isArray(list)) return [];
-        return list.map(function (m) {
-            m = m || {};
-            return {
-                text: String(m.text || ''),
-                likes: Number(m.likes) || 0,
-                ts: Number(m.ts) || 0,
-                mood: String(m.mood || '')
-            };
-        });
-    }
-
-    function dayKey(ts) {
-        var d = ts ? new Date(ts) : new Date();
-        return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
-    }
 
     /* ---------- 1. 章节导航圆点 ---------- */
     function initChapterNav() {
@@ -305,116 +283,6 @@
         $('#todoAdd', box).addEventListener('click', add);
         input.addEventListener('keydown', function (e) { if (e.key === 'Enter') add(); });
         render();
-    }
-
-    /* ---------- 10. 留言词云 ---------- */
-    function initWordCloud() {
-        var box = $('#wordCloud');
-        if (!box || box.getAttribute('data-ready')) return;
-        box.setAttribute('data-ready', '1');
-        var list = readMessages();
-        var freq = {};
-        var STOP = { '这个': 1, '那个': 1, '自己': 1, '一个': 1, '没有': 1, '就是': 1, '可以': 1, '觉得': 1 };
-        list.forEach(function (m) {
-            var text = m.text.replace(/[^\u4e00-\u9fa5a-zA-Z0-9]+/g, ' ');
-            text.split(/\s+/).forEach(function (seg) {
-                if (/^[\u4e00-\u9fa5]{2,6}$/.test(seg)) {
-                    if (!STOP[seg]) freq[seg] = (freq[seg] || 0) + 1;
-                }
-                if (/^[a-zA-Z0-9]{2,10}$/.test(seg)) freq[seg] = (freq[seg] || 0) + 1;
-            });
-        });
-        var words = Object.keys(freq).map(function (w) { return { w: w, n: freq[w] }; })
-            .sort(function (a, b) { return b.n - a.n; }).slice(0, 30);
-        if (!words.length) {
-            box.innerHTML = '<div class="cloud-empty">' + icon('chat') + ' 留言后，这里会生成大家常说的话</div>';
-            return;
-        }
-        var max = words[0].n, min = words[words.length - 1].n;
-        var wrap = document.createElement('div');
-        wrap.className = 'word-cloud__inner';
-        words.forEach(function (it, i) {
-            var span = document.createElement('span');
-            span.className = 'word-cloud__word';
-            span.textContent = it.w;
-            var ratio = max === min ? 1 : (it.n - min) / (max - min);
-            span.style.fontSize = (0.9 + ratio * 1.1).toFixed(2) + 'rem';
-            span.style.opacity = (0.6 + ratio * 0.4).toFixed(2);
-            span.title = '出现 ' + it.n + ' 次';
-            wrap.appendChild(span);
-        });
-        box.innerHTML = '<h4>' + icon('sparkle') + ' 高频词云</h4>';
-        box.appendChild(wrap);
-    }
-
-    /* ---------- 11. 留言打卡热力图 ---------- */
-    function initHeatmap() {
-        var box = $('#messageHeatmap');
-        if (!box || box.getAttribute('data-ready')) return;
-        box.setAttribute('data-ready', '1');
-        var list = readMessages();
-        var counts = {};
-        list.forEach(function (m) { if (m.ts) { var k = dayKey(m.ts); counts[k] = (counts[k] || 0) + 1; } });
-        var weeks = 12, cells = [];
-        var today = new Date(); today.setHours(0, 0, 0, 0);
-        var end = new Date(today);
-        var start = new Date(today); start.setDate(start.getDate() - (weeks * 7 - 1));
-        var d = new Date(start);
-        while (d <= end) {
-            var k = dayKey(d.getTime());
-            var n = counts[k] || 0;
-            cells.push({ key: k, n: n, date: new Date(d) });
-            d.setDate(d.getDate() + 1);
-        }
-        box.innerHTML = '<h4>' + icon('wave') + ' 留言打卡</h4>';
-        var grid = document.createElement('div');
-        grid.className = 'heatmap-grid';
-        cells.forEach(function (c) {
-            var cell = document.createElement('span');
-            cell.className = 'heatmap-cell lvl-' + Math.min(4, c.n);
-            cell.title = c.key + '：' + c.n + ' 条留言';
-            grid.appendChild(cell);
-        });
-        box.appendChild(grid);
-        var legend = document.createElement('div');
-        legend.className = 'heatmap-legend';
-        legend.innerHTML = '<span>近 ' + weeks + ' 周</span>' +
-            '<i class="heatmap-cell lvl-0"></i><i class="heatmap-cell lvl-1"></i>' +
-            '<i class="heatmap-cell lvl-2"></i><i class="heatmap-cell lvl-3"></i><i class="heatmap-cell lvl-4"></i>' +
-            '<span>多</span>';
-        box.appendChild(legend);
-    }
-
-    /* ---------- 12. 访问统计面板 ---------- */
-    function initVisitStats() {
-        var box = $('#visitStats');
-        if (!box || box.getAttribute('data-ready')) return;
-        box.setAttribute('data-ready', '1');
-        var stats = storeGet('siteVisitStats', null);
-        var today = dayKey(Date.now());
-        if (!stats || stats.lastDay !== today) {
-            stats = stats || { count: 0, first: today };
-            stats.count = (Number(stats.count) || 0) + 1;
-            stats.lastDay = today;
-            storeSet('siteVisitStats', stats);
-        }
-        var list = readMessages();
-        var likes = list.reduce(function (s, m) { return s + m.likes; }, 0);
-        var data = [
-            { label: '访问次数', value: stats.count },
-            { label: '首次到访', value: stats.first ? stats.first.slice(5) : '今天' },
-            { label: '留言总数', value: list.length },
-            { label: '收获点赞', value: likes }
-        ];
-        box.innerHTML = '<h4>' + icon('chart') + ' 站点小统计</h4><div class="visit-stats__grid">' +
-            data.map(function (d) {
-                return '<div class="visit-stat"><b></b><span></span></div>';
-            }).join('') + '</div><p class="visit-stats__note">数据仅保存在本机浏览器</p>';
-        var cards = $$('.visit-stat', box);
-        data.forEach(function (d, i) {
-            $('b', cards[i]).textContent = d.value;
-            $('span', cards[i]).textContent = d.label;
-        });
     }
 
     /* ---------- 13. 档案卡 3D 翻转 ---------- */

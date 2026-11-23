@@ -359,8 +359,9 @@
             }
             host.innerHTML = '<span class="mood-stats__label">大家的心情：</span>' + keys.map(k => {
                 const m = MOODS[k] || { label: k, color: '#0077be' };
-                return '<span class="mood-stat" style="--mood-color:' + m.color + '">' +
-                    (window.svgIcon ? window.svgIcon(m.icon || 'sparkle') : '') + m.label + ' <b>' + counts[k] + '</b></span>';
+                const color = /^#[0-9a-fA-F]{3,8}$/.test(m.color) ? m.color : '#0077be';
+                return '<span class="mood-stat" style="--mood-color:' + color + '">' +
+                    (window.svgIcon ? window.svgIcon(m.icon || 'sparkle') : '') + escapeHtml(m.label) + ' <b>' + counts[k] + '</b></span>';
             }).join('');
         }
 
@@ -368,16 +369,6 @@
         function renderMessages() {
             let list = readList();
             renderMoodStats(list);
-            // 更新统计数字
-            const statMsg = document.getElementById('statMessages');
-            if (statMsg) statMsg.setAttribute('data-count', list.length);
-            const statDays = document.getElementById('statDays');
-            if (statDays && window.siteDeviceId) {
-                try {
-                    const first = parseInt(localStorage.getItem('site-first-visit'), 10);
-                    if (first) statDays.setAttribute('data-count', Math.max(1, Math.floor((Date.now() - first) / 86400000) + 1));
-                } catch (e) {}
-            }
             if (onlyMine) {
                 const myId = window.siteDeviceId ? window.siteDeviceId() : '';
                 list = list.filter(m => m.device === myId);

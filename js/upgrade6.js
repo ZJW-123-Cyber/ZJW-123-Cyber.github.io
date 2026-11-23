@@ -477,7 +477,7 @@
     /* ---------- 7. 学习日历 ---------- */
     function initStudyCalendar() {
         // 放在徽章区之后（页面后段），避免夹在年度进度与倒计时之间形成大块空白
-        var anchor = $('#studyCalendarAnchor') || $('#badgeSection') || $('#yearProgress') || $('#timeCapsule');
+        var anchor = $('#studyCalendarAnchor') || $('#timeCapsule');
         if (!anchor || $('#studyCalendar')) return;
         var box = document.createElement('div');
         box.className = 'study-calendar reveal';
@@ -668,13 +668,6 @@
                 '<p>十轮升级的完整记录，看看这个站点是怎么一步步长大的。</p>' +
                 '<span class="map-card__path">changelog.html</span>';
             map.appendChild(card);
-        }
-        var panel = $('.guide-modal__panel');
-        if (panel && !$('.guide-new6', panel)) {
-            var g = document.createElement('div');
-            g.className = 'guide-group guide-new6';
-            g.innerHTML = '<h4>本次新增（第十轮）</h4><p>听全文朗读、全屏沉浸、字体风格、选中文字工具条、留言头像与卡片、学习日历、作品对比、更新日志页。点右下角 📖 打开阅读工具。</p>';
-            panel.appendChild(g);
         }
     }
 

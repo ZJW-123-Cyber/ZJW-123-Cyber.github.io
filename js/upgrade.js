@@ -1,14 +1,12 @@
 /* ============================================================
-   upgrade.js — 第五轮升级：8 项新功能
+   upgrade.js — 第五轮升级（已移除年度进度、成就徽章等模块）
    依赖 interactions.js（window.showToast / window.svgIcon），在其后加载。
    1. 星云配色切换（星海蓝 / 极光青 / 暮光紫，与深浅主题自由叠加）
    2. 星空实时时钟（时间 / 日期 / 星期 / 问候语）
-   3. 年度时间进度条
-   4. 成就徽章墙（依据本机行为自动解锁）
-   5. 作品收藏与「只看收藏」
-   6. 留言墙「漂流瓶视图」
-   7. 联系方式一键复制
-   8. 页面淡入 + 图片懒加载
+   3. 作品收藏与「只看收藏」
+   4. 留言墙「漂流瓶视图」
+   5. 联系方式一键复制
+   6. 页面淡入 + 图片懒加载
    所有模块均做容器存在性检测，任一模块异常不影响其他模块。
    ============================================================ */
 (function () {
@@ -30,18 +28,6 @@
         catch (e) { return fallback; }
     }
     function storeSet(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
-
-    /* ---------- 访问轨迹：探索者 / 夜行者徽章的数据来源 ---------- */
-    function trackVisit() {
-        var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-        var map = { '': 'home', 'index.html': 'home', 'about.html': 'about', 'works.html': 'works', 'hobby.html': 'hobby' };
-        var key = map[file] || file.replace(/\.html$/, '');
-        var pages = storeGet('sitePagesVisited', []);
-        if (!Array.isArray(pages)) pages = [];
-        if (pages.indexOf(key) < 0) { pages.push(key); storeSet('sitePagesVisited', pages); }
-        var h = new Date().getHours();
-        if (h >= 22 || h < 5) storeSet('siteNightVisit', 1);
-    }
 
     /* ---------- 1. 星云配色 ---------- */
     function initAccent() {
@@ -103,57 +89,6 @@
         }
         tick();
         window.setInterval(tick, 1000);
-    }
-
-    /* ---------- 3. 年度时间进度 ---------- */
-    function initYearProgress() {
-        var box = $('#yearProgress');
-        if (!box) return;
-        var now = new Date(), y = now.getFullYear();
-        var start = new Date(y, 0, 1), end = new Date(y + 1, 0, 1);
-        var total = Math.round((end - start) / 86400000);
-        var passed = Math.max(0, Math.min(total, Math.round((now - start) / 86400000)));
-        var pct = total ? (passed / total * 100) : 0;
-        box.innerHTML =
-            '<div class="year-progress__head"><span>' + y + ' 年时间足迹</span><b>' + pct.toFixed(1) + '%</b></div>' +
-            '<div class="year-progress__track"><div class="year-progress__fill"></div></div>' +
-            '<div class="year-progress__note">已走过 ' + passed + ' 天 · 还有 ' + (total - passed) + ' 天，每一天都值得认真对待</div>';
-        window.setTimeout(function () {
-            var fill = $('.year-progress__fill', box);
-            if (fill) fill.style.width = pct.toFixed(1) + '%';
-        }, 160);
-    }
-
-    /* ---------- 4. 成就徽章墙 ---------- */
-    function initBadges() {
-        var wall = $('#badgeWall');
-        if (!wall) return;
-        var msgs = storeGet('homeMessage', []);
-        if (!Array.isArray(msgs)) msgs = [];
-        var liked = storeGet('homeMessageLiked', {});
-        var likeCount = Object.keys(liked && typeof liked === 'object' ? liked : {}).length;
-        var todos = storeGet('siteTodo', []);
-        if (!Array.isArray(todos)) todos = [];
-        var doneCount = todos.filter(function (t) { return t && t.done; }).length;
-        var pages = storeGet('sitePagesVisited', []);
-        if (!Array.isArray(pages)) pages = [];
-        var night = storeGet('siteNightVisit', 0);
-        var allPages = ['home', 'about', 'works', 'hobby'].every(function (p) { return pages.indexOf(p) >= 0; });
-
-        var badges = [
-            { icon: 'sparkle', name: '初来乍到', desc: '第一次来到这里', ok: true },
-            { icon: 'chat', name: '留言达人', desc: '留下第一条留言', ok: msgs.length > 0 },
-            { icon: 'like', name: '人气之星', desc: '给留言点赞 3 次', ok: likeCount >= 3 },
-            { icon: 'moon', name: '夜行者', desc: '深夜到访过本站', ok: !!night },
-            { icon: 'folder', name: '探索者', desc: '逛遍 4 个主页面', ok: allPages },
-            { icon: 'heart', name: '目标达成', desc: '完成 1 项小目标', ok: doneCount > 0 }
-        ];
-        wall.innerHTML = badges.map(function (b) {
-            return '<div class="badge ' + (b.ok ? 'unlocked' : 'locked') + '" title="' + esc(b.desc) + '">' +
-                '<span class="badge__icon">' + icon(b.icon) + '</span>' +
-                '<span class="badge__name">' + b.name + '</span>' +
-                '<span class="badge__desc">' + b.desc + '</span></div>';
-        }).join('');
     }
 
     /* ---------- 5. 作品收藏与「只看收藏」 ---------- */
@@ -306,7 +241,6 @@
 
     /* ---------- 初始化 ---------- */
     function init() {
-        trackVisit();
         var modules = [
             initAccent, initSkyClock,
             initWorkFavorites, initBottleView, initContactCopy, initPagePolish

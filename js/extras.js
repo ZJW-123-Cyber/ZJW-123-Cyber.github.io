@@ -267,32 +267,6 @@
         tick();
     }
 
-    /* ---------- C3. 数字滚动计数 ---------- */
-    function initCounters() {
-        var els = document.querySelectorAll('[data-count]');
-        if (!els.length) return;
-        function run(el) {
-            var target = Number(el.getAttribute('data-count')) || 0;
-            if (reduce()) { el.textContent = target; return; }
-            var dur = 1100, start = null;
-            function step(ts) {
-                if (!start) start = ts;
-                var p = Math.min(1, (ts - start) / dur);
-                var eased = 1 - Math.pow(1 - p, 3);
-                el.textContent = Math.round(target * eased);
-                if (p < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
-        }
-        if (!('IntersectionObserver' in window)) { els.forEach(run); return; }
-        var ob = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e) {
-                if (e.isIntersecting) { run(e.target); ob.unobserve(e.target); }
-            });
-        }, { threshold: 0.5 });
-        els.forEach(function (el) { ob.observe(el); });
-    }
-
     /* ---------- D1. 时间胶囊 ---------- */
     function initTimeCapsule() {
         var host = document.getElementById('timeCapsule');
@@ -498,7 +472,6 @@
         initShortcuts();
         initWhaleCursor();
         initMarineDrift();
-        initCounters();
         initTimeCapsule();
         initQuiz();
         initWorkFilter();

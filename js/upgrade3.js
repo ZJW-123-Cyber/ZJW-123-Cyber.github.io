@@ -1,14 +1,11 @@
 /* ============================================================
-   upgrade3.js — 第七轮升级：8 项新功能
+   upgrade3.js — 第七轮升级（已移除连续打卡、目标倒计时、功能导览）
    依赖 interactions.js / upgrade.js / upgrade2.js，在其后加载。
    1. 留言搜索 + 心情筛选
    2. 留言时间轴视图
-   3. 连续访问打卡
-   4. 番茄钟专注记录 + 完成通知
-   5. 自定义主色调
-   6. 目标倒计时
-   7. 功能导览浮层
-   8. 作品灯箱增强（左右切换 / 缩略图 / 自动播放）
+   3. 番茄钟专注记录 + 完成通知
+   4. 自定义主色调
+   5. 作品灯箱增强（左右切换 / 缩略图 / 自动播放）
    全部模块特性检测 + 独立 try-catch，不破坏既有功能。
    ============================================================ */
 (function () {
@@ -126,33 +123,6 @@
         }
     }
 
-    /* ---------- 3. 连续访问打卡 ---------- */
-    function initStreak() {
-        var grid = $('.data-zone__grid');
-        if (!grid || $('.streak-card')) return;
-        var days = storeGet('siteVisitDays', []);
-        if (!Array.isArray(days)) days = [];
-        var today = dayKey(Date.now());
-        if (days.indexOf(today) < 0) {
-            days.push(today);
-            if (days.length > 366) days = days.slice(-366);
-            storeSet('siteVisitDays', days);
-        }
-        var set = {};
-        days.forEach(function (d) { set[d] = 1; });
-        var cursor = new Date(); cursor.setHours(0, 0, 0, 0);
-        if (!set[dayKey(cursor.getTime())]) cursor.setDate(cursor.getDate() - 1);
-        var streak = 0;
-        while (set[dayKey(cursor.getTime())]) { streak++; cursor.setDate(cursor.getDate() - 1); }
-        var card = document.createElement('div');
-        card.className = 'data-card streak-card';
-        card.innerHTML =
-            '<h4>' + icon('sparkle') + ' 连续打卡</h4>' +
-            '<div class="streak-card__num">' + streak + '<small>天</small></div>' +
-            '<p class="streak-card__note">' + (streak > 1 ? '保持住，每一天都在积累' : '从今天开始，明天再来吧') + '</p>';
-        grid.appendChild(card);
-    }
-
     /* ---------- 4. 番茄钟专注记录 + 完成通知 ---------- */
     function initFocusLog() {
         var box = $('#pomodoroBox');
@@ -266,87 +236,7 @@
         });
     }
 
-    /* ---------- 6. 目标倒计时 ---------- */
-    function initCountdown() {
-        var anchor = $('#yearProgress');
-        if (!anchor || !anchor.parentNode || $('.countdown-card')) return;
-        var card = document.createElement('div');
-        card.className = 'countdown-card';
-        anchor.parentNode.insertBefore(card, anchor.nextSibling);
-        var cfg = storeGet('siteCountdown', null);
-        function render() {
-            if (!cfg || !cfg.date) {
-                card.innerHTML =
-                    '<div class="countdown-card__head">' + icon('clock') + ' 目标倒计时</div>' +
-                    '<p class="countdown-card__empty">还没有设置目标 · <button type="button">点此设置</button></p>';
-            } else {
-                var target = new Date(cfg.date + 'T00:00:00');
-                var days = isNaN(target.getTime()) ? 0 : Math.ceil((target.getTime() - Date.now()) / 86400000);
-                card.innerHTML =
-                    '<div class="countdown-card__head">' + icon('clock') + ' 距离「' + esc(cfg.name) + '」</div>' +
-                    '<div class="countdown-card__num">' + (days > 0 ? days : 0) + '<small>天</small></div>' +
-                    '<p class="countdown-card__note">' +
-                        (days > 0 ? '目标日期：' + esc(cfg.date) : '目标日已到，可以设置新目标了') +
-                        ' · <button type="button">修改</button>' +
-                    '</p>';
-            }
-            var b = $('button', card);
-            if (b) b.addEventListener('click', setup);
-        }
-        function setup() {
-            var name = window.prompt('目标名称（例如：期末考试）', cfg ? cfg.name : '期末考试');
-            if (name === null) return;
-            var date = window.prompt('目标日期（格式 YYYY-MM-DD）', cfg ? cfg.date : '2026-12-31');
-            if (date === null) return;
-            if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) { toast('日期格式应为 YYYY-MM-DD', 'error'); return; }
-            cfg = { name: name.trim() || '我的目标', date: date };
-            storeSet('siteCountdown', cfg);
-            render();
-            toast('倒计时已设置', 'success');
-        }
-        render();
-    }
-
     /* ---------- 7. 功能导览浮层 ---------- */
-    function initGuide() {
-        if ($('.guide-btn')) return;
-        var btn = document.createElement('button');
-        btn.type = 'button'; btn.className = 'guide-btn';
-        btn.innerHTML = icon('bulb');
-        btn.setAttribute('aria-label', '功能导览');
-        btn.title = '功能导览';
-        document.body.appendChild(btn);
-
-        var groups = [
-            ['首页', '留言墙：搜索、心情筛选、最新/最热、只看我的、时间轴/漂流瓶视图、回复、点赞、置顶、导出；还有星空时钟、年度进度、目标倒计时、连续打卡、成就徽章与数据看板。'],
-            ['关于我', '翻转名片、技能条与雷达图、成长时间线、联系方式一键复制，以及「打印简历 / 存为 PDF」。'],
-            ['我的作品', '技术栈筛选、收藏、点赞、最热优先排序；点开作品可用左右方向键切换，还有缩略图与自动播放。'],
-            ['兴趣爱好', '番茄专注钟（含专注记录与完成提醒）、本地小目标清单。'],
-            ['全站', '主题三态（跟随系统/浅色/深色）、星云配色、自定义主色、字号与阅读模式、站内搜索、快捷键面板（按 ?）、离线提示、本地数据管理、无障碍跳转。']
-        ];
-        var modal = document.createElement('div');
-        modal.className = 'guide-modal';
-        modal.setAttribute('role', 'dialog');
-        modal.setAttribute('aria-modal', 'true');
-        modal.setAttribute('aria-label', '功能导览');
-        modal.innerHTML =
-            '<div class="guide-modal__panel">' +
-              '<div class="guide-modal__head"><h3>本站功能导览</h3><button type="button" class="guide-modal__close" aria-label="关闭">×</button></div>' +
-              '<p class="guide-modal__desc">功能做了不少，这里帮你快速找到它们。所有数据都只保存在你自己的浏览器里。</p>' +
-              groups.map(function (g) {
-                  return '<div class="guide-group"><h4>' + g[0] + '</h4><p>' + g[1] + '</p></div>';
-              }).join('') +
-              '<div class="guide-tip">小提示：按 ? 打开快捷键面板，按 T 切换主题，按 M 播放氛围音乐。</div>' +
-            '</div>';
-        document.body.appendChild(modal);
-        btn.addEventListener('click', function () { modal.classList.add('open'); });
-        $('.guide-modal__close', modal).addEventListener('click', function () { modal.classList.remove('open'); });
-        modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('open'); });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') modal.classList.remove('open');
-        });
-    }
-
     /* ---------- 8. 作品灯箱增强 ---------- */
     function initLightboxEnhance() {
         var box = $('.lightbox');

@@ -89,22 +89,6 @@
     function initMotion() {
         var off = rawGet('site-motion') === 'off';
         if (off) document.documentElement.setAttribute('data-motion', 'off');
-        var panel = $('.guide-modal__panel');
-        if (!panel || $('#motionToggle')) return;
-        var group = document.createElement('div');
-        group.className = 'guide-group motion-group';
-        group.innerHTML =
-            '<h4>动效偏好</h4>' +
-            '<label class="motion-switch"><input type="checkbox" id="motionToggle"' + (off ? ' checked' : '') + '><span>减少动画（无障碍模式）</span></label>' +
-            '<small class="motion-hint">开启后关闭粒子、漂浮和入场动画，阅读更清爽，设置会一直保留。</small>';
-        panel.appendChild(group);
-        var toggle = $('#motionToggle', group);
-        toggle.addEventListener('change', function () {
-            var isOff = this.checked;
-            if (isOff) { document.documentElement.setAttribute('data-motion', 'off'); rawSet('site-motion', 'off'); }
-            else { document.documentElement.removeAttribute('data-motion'); rawSet('site-motion', 'on'); }
-            toast(isOff ? '已开启减少动画' : '已恢复完整动效', 'info');
-        });
     }
 
     /* ---------- 3. 留言草稿自动保存 ---------- */
@@ -338,22 +322,10 @@
         });
     }
 
-    /* ---------- 功能导览补充 ---------- */
-    function augmentGuide() {
-        var panel = $('.guide-modal__panel');
-        if (!panel || $('.guide-new')) return;
-        var box = document.createElement('div');
-        box.className = 'guide-group guide-new';
-        box.innerHTML =
-            '<h4>本次新增（第八轮）</h4>' +
-            '<p>分享此页、减少动画开关、留言草稿自动保存、留言表情回应、作品生成壁纸、成长时间线筛选、瀑布流布局。</p>';
-        panel.appendChild(box);
-    }
-
     function init() {
         var modules = [
             initShare, initMotion, initDraft,
-            initReactions, initWallpaper, initTimelineFilter, initMasonry, augmentGuide
+            initReactions, initWallpaper, initTimelineFilter, initMasonry
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });
     }

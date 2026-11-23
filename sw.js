@@ -1,7 +1,7 @@
 /* ============================================================
    sw.js — Service Worker，让网站可安装并支持离线访问
    ============================================================ */
-const CACHE_NAME = 'my-website-v42';
+const CACHE_NAME = 'my-website-v43';
 
 const CORE_ASSETS = [
     './',

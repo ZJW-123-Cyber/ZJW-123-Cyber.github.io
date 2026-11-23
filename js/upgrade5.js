@@ -74,7 +74,7 @@
     }
 
     /* ---------- 2. 专注模式 ---------- */
-    var FOCUS_HIDE = '.search-fab, .music-player, .data-manager-btn, .color-btn, .guide-btn, ' +
+    var FOCUS_HIDE = '.search-fab, .music-player, .data-manager-btn, .color-btn, ' +
         '.back-to-top, .footer-share, .chapter-nav, .offline-bar, ' +
         '.visitor-badge, .ocean-waves, #rainCanvas, .marine-canvas';
     function initFocusMode() {
@@ -462,16 +462,6 @@
             initFormHints, initWorkDetail, initSkillDetails, initTodoPriority, initPomoCustom
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });
-        // 功能导览补充
-        try {
-            var panel = $('.guide-modal__panel');
-            if (panel && !$('.guide-new5')) {
-                var g = document.createElement('div');
-                g.className = 'guide-group guide-new5';
-                g.innerHTML = '<h4>本次新增（第九轮）</h4><p>环形阅读进度、专注模式、统一收藏夹、精选留言轮播、表单校验提示、作品详情链接、技能详情展开、待办优先级与筛选、番茄钟自定义时长。</p>';
-                panel.appendChild(g);
-            }
-        } catch (e) {}
     }
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
