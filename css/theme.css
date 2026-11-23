@@ -1554,3 +1554,34 @@ html.focus-mode .zen-section { opacity: .12; }
 /* 功能导览按钮已移除 */
 .guide-btn { display: none !important; }
 
+/* ===== 访客徽章：默认收缩为圆形爱心按钮，鼠标悬停展开完整文字 ===== */
+.visitor-badge {
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    gap: 0;
+    border-radius: 50%;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width .35s cubic-bezier(.4, 0, .2, 1),
+                border-radius .35s ease,
+                padding .35s ease,
+                gap .35s ease;
+}
+.visitor-badge .ui-icon { width: 20px; height: 20px; flex: 0 0 auto; }
+.visitor-badge > span {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-width .35s cubic-bezier(.4, 0, .2, 1), opacity .25s ease;
+}
+.visitor-badge:hover {
+    width: min(300px, calc(100vw - 80px));
+    padding: 6px 12px;
+    gap: 6px;
+    border-radius: 18px;
+    justify-content: flex-start;
+}
+.visitor-badge:hover > span { max-width: 260px; opacity: 1; }
+
