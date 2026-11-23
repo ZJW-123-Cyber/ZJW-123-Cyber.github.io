@@ -171,30 +171,36 @@
         footer p { margin: 0; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
         footer .copyright { margin-top: 6px; font-size: 0.8rem; opacity: 0.85; }
 
-        /* ===== 关于页顶部：左禅语诗牌 / 右翻转名片 并排（填充红圈空白区） ===== */
+        /* ===== 关于页顶部：左禅语 / 中翻转名片 / 右古诗 三栏对称 ===== */
         .about-hero-row {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
-            gap: clamp(18px, 3.5vw, 48px);
+            gap: clamp(14px, 2.2vw, 30px);
             margin: 6px 0 30px;
         }
         .about-hero-row .zen-section {
-            flex: 1 1 380px;
-            max-width: 480px;
+            flex: 1 1 300px;
+            max-width: 380px;
             margin: 0;
-            padding: 30px 20px 26px;
-            border-radius: 22px;
+            padding: 26px 16px 24px;
+            border-radius: 20px;
         }
-        .about-hero-row .zen-eyebrow { margin-bottom: 18px; font-size: .74rem; }
-        .about-hero-row .zen-poem { gap: clamp(12px, 2.4vw, 24px); min-height: 210px; }
-        .about-hero-row .zen-line { font-size: clamp(1.05rem, 2.4vw, 1.5rem); letter-spacing: .28em; }
-        .about-hero-row .zen-sign { margin-top: 18px; font-size: .74rem; }
-        .about-hero-row .flip-card { flex: 0 1 340px; margin: 0; }
+        .about-hero-row .zen-eyebrow { margin-bottom: 16px; font-size: .72rem; }
+        .about-hero-row .zen-poem { gap: clamp(10px, 1.8vw, 18px); min-height: 210px; }
+        .about-hero-row .zen-line { font-size: clamp(1rem, 2vw, 1.32rem); letter-spacing: .24em; }
+        .about-hero-row .zen-sign { margin-top: 16px; font-size: .72rem; }
+        .about-hero-row .flip-card { flex: 0 1 320px; margin: 0; }
+        /* 右侧七言诗：字多一列，字号再缩一点保证与左牌对称不溢出 */
+        .about-hero-row .zen-section--right .zen-line { font-size: clamp(.92rem, 1.8vw, 1.2rem); letter-spacing: .2em; }
+        @media (max-width: 900px) {
+            .about-hero-row .zen-section { flex: 1 1 260px; }
+        }
         @media (max-width: 760px) {
             .about-hero-row { flex-direction: column; }
-            .about-hero-row .zen-section { width: 100%; max-width: 480px; }
+            .about-hero-row .zen-section,
+            .about-hero-row .zen-section--right { width: 100%; max-width: 460px; }
             .about-hero-row .flip-card { width: 100%; max-width: 360px; }
         }
     </style>
@@ -246,6 +252,16 @@
                 </div>
             </div>
         </div>
+        <section class="zen-section zen-section--right" id="zenPoem2" aria-label="古诗一韵">
+            <p class="zen-eyebrow">◌&nbsp; 古 韵 一 首 &nbsp;◌</p>
+            <div class="zen-poem" role="img" aria-label="桂树青春百里疆，鹧鸪啼彻午阴凉，延平津上峰如削，剑去江空水自长。">
+                <span class="zen-line" data-text="桂树青春百里疆">桂树青春百里疆</span>
+                <span class="zen-line" data-text="鹧鸪啼彻午阴凉">鹧鸪啼彻午阴凉</span>
+                <span class="zen-line" data-text="延平津上峰如削">延平津上峰如削</span>
+                <span class="zen-line" data-text="剑去江空水自长">剑去江空水自长</span>
+            </div>
+            <p class="zen-sign">— 喻良能《南剑道中》</p>
+        </section>
         </div><!-- /.about-hero-row -->
         <div class="about-content">
             <div class="card reveal" style="--reveal-delay: 0.15s">
