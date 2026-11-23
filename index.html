@@ -275,15 +275,6 @@
             <!-- 由 extras.js 渲染 -->
         </section>
 
-        <section class="data-zone reveal" id="dataZone" style="--reveal-delay: 0.1s">
-            <h2><span data-icon="chart" style="vertical-align:-0.08em"></span> 数据看板</h2>
-            <div class="data-zone__grid">
-                <div class="data-card" id="visitStats" style="--reveal-delay: 0.12s"><!-- 由 more.js 渲染 --></div>
-                <div class="data-card" id="wordCloud" style="--reveal-delay: 0.2s"><!-- 由 more.js 渲染 --></div>
-                <div class="data-card" id="messageHeatmap" style="--reveal-delay: 0.28s"><!-- 由 more.js 渲染 --></div>
-            </div>
-        </section>
-
         <section class="badge-section reveal" id="badgeSection" style="--reveal-delay: 0.1s">
             <h2>成就徽章</h2>
             <div class="badge-wall" id="badgeWall"></div>
@@ -569,8 +560,6 @@
             showFormBtn.style.display = 'block';
 
             renderMessages();
-            // 通知数据看板（词云 / 热力图 / 统计）刷新
-            document.dispatchEvent(new Event('messagechanged'));
         }
 
         // 导出留言为 JSON 文件

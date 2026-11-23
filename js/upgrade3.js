@@ -433,7 +433,7 @@
     /* ---------- 初始化 ---------- */
     function init() {
         var modules = [
-            initMessageFilter, initTimelineView, initStreak, initFocusLog,
+            initMessageFilter, initTimelineView, initFocusLog,
             initColorPicker, initGuide, initLightboxEnhance
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });

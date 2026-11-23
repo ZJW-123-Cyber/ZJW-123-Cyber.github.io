@@ -446,20 +446,11 @@
             initChapterNav, initScrollHighlight, initWaveDivider,
             initAudioSpectrum,
             initPomodoro, initTodo,
-            initWordCloud, initHeatmap, initVisitStats, initFlipCard
+            initFlipCard
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });
         try { injectMoreIcons(); } catch (e) {}
 
-        // 留言新增后刷新数据可视化
-        window.addEventListener('messagechanged', function () {
-            try { $('#wordCloud') && $('#wordCloud').removeAttribute('data-ready'); } catch (e) {}
-            try { $('#messageHeatmap') && $('#messageHeatmap').removeAttribute('data-ready'); } catch (e) {}
-            try { $('#visitStats') && $('#visitStats').removeAttribute('data-ready'); } catch (e) {}
-            try { initWordCloud(); } catch (e) {}
-            try { initHeatmap(); } catch (e) {}
-            try { initVisitStats(); } catch (e) {}
-        });
     }
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
