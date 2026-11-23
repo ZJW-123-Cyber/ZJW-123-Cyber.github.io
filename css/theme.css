@@ -1540,9 +1540,8 @@ html.focus-mode .zen-section { opacity: .12; }
 /* ===== 修复：音频频谱 Canvas 不再挤占 flex 位置，播放按钮回归左侧竖列 ===== */
 .music-player .audio-spectrum {
     position: absolute !important;
-    left: 54px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 0;
+    bottom: 52px;
     pointer-events: none;
     opacity: 0;
     transition: opacity .3s ease;
