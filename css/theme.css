@@ -1472,3 +1472,18 @@ html.focus-mode .zen-section { opacity: .12; }
     .skill-detail, .todo-prio-bar, .todo-prio-flag, .pomo-custom { display: none !important; }
 }
 
+/* ===== 首屏紧凑：不删内容，压缩 hero 高度与元素间距，让下方内容更早露出 ===== */
+.hero { min-height: clamp(400px, 68vh, 560px) !important; }
+.hero h2 { font-size: 1.65rem !important; }
+.hero p { margin: 6px 0 12px !important; }
+.sky-clock { gap: 4px; margin: 8px 0 12px; }
+.sky-clock__time { font-size: 1.6rem !important; }
+.sky-clock__meta { font-size: .8rem; }
+.stat-strip { margin-bottom: 22px; }
+.stat-strip__item { padding: 12px 8px; }
+.stat-strip__item strong { font-size: 1.75rem; }
+@media (max-width: 560px) {
+    .hero { min-height: clamp(360px, 60vh, 480px) !important; }
+    .sky-clock__time { font-size: 1.35rem !important; }
+}
+
