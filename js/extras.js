@@ -156,40 +156,6 @@
         });
     }
 
-    /* ---------- B2. 一键复制本页链接 ---------- */
-    function initCopyLink() {
-        var btn = document.createElement('button');
-        btn.className = 'copy-link-fab';
-        btn.type = 'button';
-        btn.setAttribute('aria-label', '复制当前页面链接');
-        btn.title = '复制当前页面链接';
-        btn.innerHTML = icon('chat') + '<span>复制链接</span>';
-        document.body.appendChild(btn);
-
-        function fallbackCopy(text) {
-            var ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand('copy'); return true; } catch (e) { return false; }
-            finally { document.body.removeChild(ta); }
-        }
-        btn.addEventListener('click', function () {
-            var url = window.location.href;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(url).then(function () {
-                    toast('链接已复制，快分享给朋友吧', 'success');
-                }, function () {
-                    toast(fallbackCopy(url) ? '链接已复制' : '复制失败，请手动复制地址栏', 'info');
-                });
-            } else {
-                toast(fallbackCopy(url) ? '链接已复制' : '复制失败，请手动复制地址栏', 'info');
-            }
-        });
-    }
-
     /* ---------- C1. 鲸鱼尾自定义光标（桌面端） ---------- */
     function initWhaleCursor() {
         if (window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
@@ -530,7 +496,6 @@
         initQuotes();
         initKonami();
         initShortcuts();
-        initCopyLink();
         initWhaleCursor();
         initMarineDrift();
         initCounters();
