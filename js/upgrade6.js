@@ -476,7 +476,8 @@
 
     /* ---------- 7. 学习日历 ---------- */
     function initStudyCalendar() {
-        var anchor = $('#yearProgress');
+        // 放在徽章区之后（页面后段），避免夹在年度进度与倒计时之间形成大块空白
+        var anchor = $('#badgeSection') || $('#yearProgress');
         if (!anchor || $('#studyCalendar')) return;
         var box = document.createElement('div');
         box.className = 'study-calendar reveal';
