@@ -190,8 +190,8 @@
             padding: 24px 12px 22px;
             border-radius: 20px;
         }
-        .about-hero-row #zenPoem { grid-column: 1; grid-row: 1; }
-        .about-hero-row #zenPoem2 { grid-column: 2; grid-row: 1; }
+        .about-hero-row #zenPoem { grid-column: 1; grid-row: 2; }
+        .about-hero-row #zenPoem2 { grid-column: 2; grid-row: 2; }
         .about-hero-row .zen-eyebrow { margin-bottom: 14px; font-size: .72rem; }
         .about-hero-row .zen-poem {
             align-items: center;            /* 五言/七言均在卡片内垂直居中 */
@@ -200,10 +200,10 @@
         }
         .about-hero-row .zen-line { font-size: clamp(.95rem, 1.7vw, 1.22rem); letter-spacing: .22em; }
         .about-hero-row .zen-sign { margin-top: 14px; font-size: .72rem; }
-        /* 下排：名片跨两列、水平居中，坐实品字底 */
+        /* 上排：名片跨两列、水平居中，置于最上面 */
         .about-hero-row .flip-card {
             grid-column: 1 / -1;
-            grid-row: 2;
+            grid-row: 1;
             width: 100%;
             max-width: 340px;
             margin: 0;
@@ -211,9 +211,9 @@
         /* 窄屏改竖排 */
         @media (max-width: 700px) {
             .about-hero-row { grid-template-columns: 1fr; }
-            .about-hero-row #zenPoem,
-            .about-hero-row #zenPoem2,
-            .about-hero-row .flip-card { grid-column: 1; grid-row: auto; }
+            .about-hero-row .flip-card { grid-column: 1; grid-row: 1; }
+            .about-hero-row #zenPoem { grid-column: 1; grid-row: 2; }
+            .about-hero-row #zenPoem2 { grid-column: 1; grid-row: 3; }
             .about-hero-row .zen-section { max-width: 460px; }
             .about-hero-row .flip-card { max-width: 360px; }
         }
