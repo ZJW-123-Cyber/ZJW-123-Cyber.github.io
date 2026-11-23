@@ -1499,6 +1499,10 @@ html.focus-mode .zen-section { opacity: .12; }
     left: 22px;
     right: auto;
 }
+/* 统一圆按钮尺寸，保证中心严格对齐成一竖（播放器按钮已在容器最左，自然对齐） */
+.reader-tool-btn, .color-btn, .guide-btn, .data-manager-btn,
+.focus-mode-btn, .fav-panel-btn, .search-fab, .back-to-top,
+.music-player__btn { width: 46px; height: 46px; }
 /* 竖列位置：音乐播放器最底，其余依次向上等间距排布 */
 .music-player     { bottom: 22px; }
 .back-to-top      { bottom: 84px; }
@@ -1517,6 +1521,9 @@ html.focus-mode .zen-section { opacity: .12; }
     .reader-tool-btn, .color-btn, .guide-btn, .data-manager-btn,
     .focus-mode-btn, .search-fab, .back-to-top, .visitor-badge,
     .fav-panel-btn, .music-player { left: 14px; }
+    .reader-tool-btn, .color-btn, .guide-btn, .data-manager-btn,
+    .focus-mode-btn, .fav-panel-btn, .search-fab, .back-to-top,
+    .music-player__btn { width: 46px; height: 46px; }
     .music-player     { bottom: 16px; }
     .back-to-top      { bottom: 72px; }
     .search-fab       { bottom: 124px; }
