@@ -434,7 +434,7 @@
     function init() {
         var modules = [
             initMessageFilter, initTimelineView, initFocusLog,
-            initColorPicker, initGuide, initLightboxEnhance
+            initColorPicker, initLightboxEnhance
         ];
         modules.forEach(function (fn) { try { fn(); } catch (e) {} });
     }
