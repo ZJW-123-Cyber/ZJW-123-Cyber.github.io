@@ -172,36 +172,50 @@
         footer .copyright { margin-top: 6px; font-size: 0.8rem; opacity: 0.85; }
 
         /* ===== 关于页顶部：左禅语 / 中翻转名片 / 右古诗 三栏对称 ===== */
+        /* ===== 关于页顶部：品字布局——上排左右两诗牌对称，下排翻转名片居中 ===== */
         .about-hero-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(14px, 2vw, 26px);
+            justify-items: center;
             align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: clamp(14px, 2.2vw, 30px);
             margin: 6px 0 30px;
+            width: 100%;
         }
+        /* 上排：左右诗牌各占一列，等宽等高严格对称 */
         .about-hero-row .zen-section {
-            flex: 1 1 300px;
-            max-width: 380px;
+            width: 100%;
+            max-width: 440px;
             margin: 0;
-            padding: 26px 16px 24px;
+            padding: 24px 12px 22px;
             border-radius: 20px;
         }
-        .about-hero-row .zen-eyebrow { margin-bottom: 16px; font-size: .72rem; }
-        .about-hero-row .zen-poem { gap: clamp(10px, 1.8vw, 18px); min-height: 210px; }
-        .about-hero-row .zen-line { font-size: clamp(1rem, 2vw, 1.32rem); letter-spacing: .24em; }
-        .about-hero-row .zen-sign { margin-top: 16px; font-size: .72rem; }
-        .about-hero-row .flip-card { flex: 0 1 320px; margin: 0; }
-        /* 右侧七言诗：字多一列，字号再缩一点保证与左牌对称不溢出 */
-        .about-hero-row .zen-section--right .zen-line { font-size: clamp(.92rem, 1.8vw, 1.2rem); letter-spacing: .2em; }
-        @media (max-width: 900px) {
-            .about-hero-row .zen-section { flex: 1 1 260px; }
+        .about-hero-row #zenPoem { grid-column: 1; grid-row: 1; }
+        .about-hero-row #zenPoem2 { grid-column: 2; grid-row: 1; }
+        .about-hero-row .zen-eyebrow { margin-bottom: 14px; font-size: .72rem; }
+        .about-hero-row .zen-poem {
+            align-items: center;            /* 五言/七言均在卡片内垂直居中 */
+            gap: clamp(8px, 1.5vw, 16px);
+            min-height: 200px;
         }
-        @media (max-width: 760px) {
-            .about-hero-row { flex-direction: column; }
-            .about-hero-row .zen-section,
-            .about-hero-row .zen-section--right { width: 100%; max-width: 460px; }
-            .about-hero-row .flip-card { width: 100%; max-width: 360px; }
+        .about-hero-row .zen-line { font-size: clamp(.95rem, 1.7vw, 1.22rem); letter-spacing: .22em; }
+        .about-hero-row .zen-sign { margin-top: 14px; font-size: .72rem; }
+        /* 下排：名片跨两列、水平居中，坐实品字底 */
+        .about-hero-row .flip-card {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            width: 100%;
+            max-width: 340px;
+            margin: 0;
+        }
+        /* 窄屏改竖排 */
+        @media (max-width: 700px) {
+            .about-hero-row { grid-template-columns: 1fr; }
+            .about-hero-row #zenPoem,
+            .about-hero-row #zenPoem2,
+            .about-hero-row .flip-card { grid-column: 1; grid-row: auto; }
+            .about-hero-row .zen-section { max-width: 460px; }
+            .about-hero-row .flip-card { max-width: 360px; }
         }
     </style>
     <link rel="stylesheet" href="css/theme.css">
